@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Folder Include="InAppResources\" />
+    <Folder Include="Window\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
