@@ -24,7 +24,7 @@ namespace TodoApp1
 
         private void BtnOkay_Click(object sender, RoutedEventArgs e)
         {
-            string setupFilePath = Path.GetFullPath(@".\db\SqlLocalDB.msi");
+            string setupFilePath = Path.GetFullPath(@".\SqlLocalDB.msi");
             Process process = new Process();
             process.StartInfo.FileName = "msiexec";
             process.StartInfo.Arguments = String.Format(" /i \"{0}\"", setupFilePath);
