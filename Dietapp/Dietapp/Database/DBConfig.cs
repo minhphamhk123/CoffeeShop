@@ -39,6 +39,11 @@ namespace Dietapp.Database
                 }
             }
 
+            var fileFolderPath = Path.GetFullPath(Path.Join(GetDBFilePath(), ".."));
+            if (!Directory.Exists(fileFolderPath)){
+                Directory.CreateDirectory(fileFolderPath);
+            }
+
             using (var db = DBContext.CreateInstance())
             {
                 var dbTime = db.Database.SqlQuery<DateTime>("SELECT GETDATE()").First();
