@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Dietapp.Database;
-using TodoApp1;
 
 namespace Dietapp
 {
