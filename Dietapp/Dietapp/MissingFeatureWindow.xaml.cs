@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TodoApp1
+namespace Dietapp
 {
     /// <summary>
     /// Interaction logic for MissingFeatureWindow.xaml
