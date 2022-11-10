@@ -12,7 +12,10 @@ namespace Dietapp.Database
     {
         public static string GetConnectionString()
         {
-            return String.Format("Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={0};", GetDBFilePath());
+            //@"Data Source=.\sqlexpress;Initial Catalog=QuanLyKhachSan;Integrated Security=True";
+            return String.Format("Data Source=(LocalDb)\\t1;AttachDbFilename={0};", GetDBFilePath()); // sqllocaldb start MSSQLLocalDB
+            //return String.Format(@"Data Source=.\\SQLEXPRESS;AttachDbFilename={0};Integrated Security=True;Connect Timeout=30;User Instance=True", GetDBFilePath());
+
         }
 
         public static string GetDBFilePath()
@@ -23,6 +26,7 @@ namespace Dietapp.Database
 
         public static bool EnsureSqlLocalDb()
         {
+
             ISqlLocalDbApi localDB = new SqlLocalDbApi();
 
             if (!localDB.IsLocalDBInstalled())
@@ -31,8 +35,14 @@ namespace Dietapp.Database
             }
             else
             {
-                ISqlLocalDbInstanceInfo instance = localDB.GetInstanceInfo("MSSQLLocalDB");
+                ISqlLocalDbInstanceInfo instance = localDB.GetInstanceInfo("t1");
                 ISqlLocalDbInstanceManager manager = instance.Manage();
+
+                if (!instance.Exists)
+                {
+                    localDB.CreateInstance("t1", "15.0.2000.5");
+                }
+
                 if (!instance.IsRunning)
                 {
                     manager.Start();
