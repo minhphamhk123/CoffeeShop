@@ -9,7 +9,15 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="View\" />
   </ItemGroup>
 
 </Project>
