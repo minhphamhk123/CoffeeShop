@@ -1,0 +1,6 @@
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\CoffeeShop.csproj.AssemblyReference.cache
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\App.g.cs
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\CoffeeShop_MarkupCompile.cache
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\CoffeeShop_MarkupCompile.lref
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\MainWindow.g.cs
+D:\programer\Github\Diet-CaloManeger\CoffeeStore\CoffeeShop\CoffeeShop\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
