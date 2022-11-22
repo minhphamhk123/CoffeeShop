@@ -5,9 +5,9 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoffeeStore.DTO;
+using CoffeeShop.DTO;
 
-namespace CoffeeStore.DAL
+namespace CoffeeShop.DAL
 {
     class DAL_BeverageType: DBConnect
     {

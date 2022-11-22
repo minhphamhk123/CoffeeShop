@@ -16,11 +16,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
+using CoffeeShop.BUS;
 using LiveCharts;
 using LiveCharts.Wpf;
 
-namespace CoffeeStore.Report
+namespace CoffeeShop.Report
 {
     /// <summary>
     /// Interaction logic for ReportProfit.xaml

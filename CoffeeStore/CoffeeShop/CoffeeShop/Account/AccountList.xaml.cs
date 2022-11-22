@@ -1,5 +1,5 @@
-﻿using CoffeeStore.BUS;
-using CoffeeStore.DTO;
+﻿using CoffeeShop.BUS;
+using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CoffeeStore.Account
+namespace CoffeeShop.Account
 {
     /// <summary>
     /// Interaction logic for AccountList.xaml

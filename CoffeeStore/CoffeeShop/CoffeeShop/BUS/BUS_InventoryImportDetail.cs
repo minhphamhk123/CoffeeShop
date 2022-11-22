@@ -4,8 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoffeeStore.DAL;
-namespace CoffeeStore.BUS
+using CoffeeShop.DAL;
+namespace CoffeeShop.BUS
 {
     public class BUS_InventoryImportDetail
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.View
+namespace CoffeeShop.View
 {
     /// <summary>
     /// Interaction logic for Printing.xaml

@@ -1,5 +1,5 @@
-﻿using CoffeeStore.BUS;
-using CoffeeStore.DTO;
+﻿using CoffeeShop.BUS;
+using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,10 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static CoffeeStore.Account.GroupAccountList;
-using static CoffeeStore.Account.PopupAddGroupAccount;
+using static CoffeeShop.Account.GroupAccountList;
+using static CoffeeShop.Account.PopupAddGroupAccount;
 
-namespace CoffeeStore.Account
+namespace CoffeeShop.Account
 {
     /// <summary>
     /// Interaction logic for PopupEditGroupAccount.xaml

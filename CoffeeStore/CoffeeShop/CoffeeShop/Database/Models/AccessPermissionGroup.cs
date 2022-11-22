@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace CoffeeStore.Database.Models
+namespace CoffeeShop.Database.Models
 {
     [Table("AccessPermissionGroup")]
     public class AccessPermissionGroup

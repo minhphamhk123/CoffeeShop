@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using CoffeeShop;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,9 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
-namespace CoffeeStore.Menu
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
+
+namespace CoffeeShop.Menu
 {
     /// <summary>
     /// Interaction logic for MenuList.xaml

@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
-namespace CoffeeStore.Discount
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
+namespace CoffeeShop.Discount
 {
     /// <summary>
     /// Interaction logic for PopupDiscountEdit.xaml

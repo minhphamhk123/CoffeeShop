@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoffeeStore.DTO;
-using CoffeeStore.DAL;
+using CoffeeShop.DTO;
+using CoffeeShop.DAL;
 using System.Data;
 
-namespace CoffeeStore.BUS
+namespace CoffeeShop.BUS
 {
     class BUS_Discount
     {

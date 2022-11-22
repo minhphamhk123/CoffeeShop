@@ -1,4 +1,4 @@
-﻿using CoffeeStore.BUS;
+﻿using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static CoffeeShop.IncomeAndPayment.ReceiptDetail;
 
-namespace CoffeeStore.View
+namespace CoffeeShop.View
 {
     /// <summary>
     /// Interaction logic for ReceiptForm.xaml

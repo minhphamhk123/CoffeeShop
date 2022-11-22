@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.Inventory
+namespace CoffeeShop.Inventory
 {
     /// <summary>
     /// Interaction logic for PopupDeleteConfirm.xaml

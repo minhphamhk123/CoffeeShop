@@ -1,4 +1,4 @@
-﻿using CoffeeStore.BUS;
+﻿using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.IncomeAndPayment
+namespace CoffeeShop.IncomeAndPayment
 {
     /// <summary>
     /// Interaction logic for ReceiptList.xaml

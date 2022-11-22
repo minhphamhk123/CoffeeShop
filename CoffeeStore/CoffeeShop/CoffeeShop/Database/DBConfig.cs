@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.Database
+namespace CoffeeShop.Database
 {
     internal class DBConfig
     {
@@ -22,17 +22,17 @@ namespace CoffeeStore.Database
         {
             string dataFolderpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             // return Path.Combine(dataFolderpath, @"DemoDotNet\db\dietapp.mdf");
-            return Path.GetFullPath("./CoffeeStoreDB.mdf");
+            return Path.GetFullPath("./CoffeeShopDB.mdf");
         }
 
         public static string GetInitSQLFilePath()
         {
-            return Path.GetFullPath("./CoffeeStoreDB.mdf.sql");
+            return Path.GetFullPath("./CoffeeShopDB.mdf.sql");
         }
 
         public static string GetDbLogFilePath()
         {
-            return Path.GetFullPath("./CoffeeStoreDB_log.ldf");
+            return Path.GetFullPath("./CoffeeShopDB_log.ldf");
         }
 
         public static bool EnsureSqlLocalDb()

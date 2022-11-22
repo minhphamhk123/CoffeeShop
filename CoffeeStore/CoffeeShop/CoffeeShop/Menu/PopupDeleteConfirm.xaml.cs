@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
-using CoffeeShop;
-namespace CoffeeStore.Menu
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
+
+namespace CoffeeShop.Menu
 {
     /// <summary>
     /// Interaction logic for PopupDeleteConfirm.xaml

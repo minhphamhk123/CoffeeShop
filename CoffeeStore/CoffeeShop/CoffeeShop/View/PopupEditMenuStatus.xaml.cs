@@ -1,4 +1,4 @@
-﻿using CoffeeStore.BUS;
+﻿using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,9 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static CoffeeStore.View.Cashier;
+using static CoffeeShop.View.Cashier;
 
-namespace CoffeeStore.View
+namespace CoffeeShop.View
 {
     /// <summary>
     /// Interaction logic for PopupEditMenuStatus.xaml

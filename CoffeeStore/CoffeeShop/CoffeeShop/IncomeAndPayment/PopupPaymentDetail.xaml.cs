@@ -13,10 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
 
-namespace CoffeeStore.IncomeAndPayment
+namespace CoffeeShop.IncomeAndPayment
 {
     /// <summary>
     /// Interaction logic for PopupPaymentDetail.xaml

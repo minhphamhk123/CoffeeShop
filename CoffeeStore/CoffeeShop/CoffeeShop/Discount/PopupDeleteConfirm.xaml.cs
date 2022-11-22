@@ -1,4 +1,4 @@
-﻿using CoffeeStore.DTO;
+﻿using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.Discount
+namespace CoffeeShop.Discount
 {
     /// <summary>
     /// Interaction logic for PopupDeleteConfirm.xaml

@@ -15,12 +15,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeShop;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
 using Microsoft.Win32;
 
-namespace CoffeeStore.Menu
+namespace CoffeeShop.Menu
 {
     /// <summary>
     /// Interaction logic for PopupAddMenu.xaml

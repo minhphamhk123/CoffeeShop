@@ -1,4 +1,4 @@
-﻿using CoffeeStore.Database.Models;
+﻿using CoffeeShop.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +9,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.Database
+namespace CoffeeShop.Database
 {
     internal class DBContext : DbContext
     {

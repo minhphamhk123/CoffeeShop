@@ -1,4 +1,4 @@
-﻿using CoffeeStore.BUS;
+﻿using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +28,7 @@ static class Constants
     public const string RULE = "Thiết lập quy định";
 }
 
-namespace CoffeeStore.Account
+namespace CoffeeShop.Account
 {
     /// <summary>
     /// Interaction logic for GroupAccountList.xaml

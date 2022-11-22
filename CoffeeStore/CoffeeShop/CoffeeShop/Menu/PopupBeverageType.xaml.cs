@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.DTO;
-using CoffeeStore.BUS;
-namespace CoffeeStore.Menu
+using CoffeeShop.DTO;
+using CoffeeShop.BUS;
+namespace CoffeeShop.Menu
 {
     /// <summary>
     /// Interaction logic for PopupBeverageType.xaml

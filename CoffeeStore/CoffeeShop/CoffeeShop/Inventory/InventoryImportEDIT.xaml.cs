@@ -1,6 +1,5 @@
-﻿using CoffeeStore.BUS;
+﻿using CoffeeShop.BUS;
 using System;
-using CoffeeShop;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -17,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.Inventory
+namespace CoffeeShop.Inventory
 {
     /// <summary>
     /// Interaction logic for InventoryImportEDIT.xaml

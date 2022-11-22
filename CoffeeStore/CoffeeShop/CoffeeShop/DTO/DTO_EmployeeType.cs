@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.DTO
+namespace CoffeeShop.DTO
 {
     public class DTO_EmployeeType
     {

@@ -1,5 +1,5 @@
-﻿using CoffeeStore.BUS;
-using CoffeeStore.DTO;
+﻿using CoffeeShop.BUS;
+using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore.Account
+namespace CoffeeShop.Account
 {
     /// <summary>
     /// Interaction logic for PopupAddAccount.xaml

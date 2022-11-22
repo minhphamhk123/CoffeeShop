@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace CoffeeStore.DTO
+namespace CoffeeShop.DTO
 {
     public class DBConnect
     {

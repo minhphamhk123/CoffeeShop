@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.Database.Models
+namespace CoffeeShop.Database.Models
 {
     [Table("BeverageName")]
     public class BeverageName

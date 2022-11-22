@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.Database.Models
+namespace CoffeeShop.Database.Models
 {
     [Table("InventoryExportDetail")]
     public class InventoryExportDetail

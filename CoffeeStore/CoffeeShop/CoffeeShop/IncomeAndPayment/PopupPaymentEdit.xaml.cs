@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStore.BUS;
-using CoffeeStore.DTO;
-namespace CoffeeStore.IncomeAndPayment
+using CoffeeShop.BUS;
+using CoffeeShop.DTO;
+namespace CoffeeShop.IncomeAndPayment
 {
     /// <summary>
     /// Interaction logic for PopupPaymentEdit.xaml

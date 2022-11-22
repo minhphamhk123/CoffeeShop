@@ -1,5 +1,5 @@
-﻿using CoffeeStore.DAL;
-using CoffeeStore.DTO;
+﻿using CoffeeShop.DAL;
+using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.BUS
+namespace CoffeeShop.BUS
 {
     class BUS_Employees
     {

@@ -1,4 +1,4 @@
-﻿using CoffeeStore.DTO;
+﻿using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoffeeStore.DAL
+namespace CoffeeShop.DAL
 {
     public class DAL_EmployeeType : DBConnect
     {

@@ -1,4 +1,4 @@
-﻿using CoffeeStore.View;
+﻿using CoffeeShop.View;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
