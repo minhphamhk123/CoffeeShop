@@ -1,5 +1,6 @@
 ﻿using CoffeeStore.BUS;
 using System;
+using CoffeeShop;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;

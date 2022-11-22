@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using CoffeeStore.BUS;
 using CoffeeStore.DTO;
 using Microsoft.Win32;
-
+using CoffeeShop;
 namespace CoffeeStore.Menu
 {
     /// <summary>

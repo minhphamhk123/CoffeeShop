@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static CoffeeStore.IncomeAndPayment.ReceiptDetail;
+using static CoffeeShop.IncomeAndPayment.ReceiptDetail;
 
 namespace CoffeeStore.View
 {
