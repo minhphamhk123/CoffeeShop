@@ -20,4 +20,8 @@
     <Folder Include="View\" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="copy $(ProjectDir)InAppResources\* $(ProjectDir)$(OutDir)" />
+  </Target>
+
 </Project>
