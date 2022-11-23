@@ -1,5 +1,4 @@
 ﻿using BeautySolutions.View.ViewModel;
-using CoffeeShop;
 using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore
+namespace CoffeeShop
 {
     /// <summary>
     /// Interaction logic for MenuItem.xaml

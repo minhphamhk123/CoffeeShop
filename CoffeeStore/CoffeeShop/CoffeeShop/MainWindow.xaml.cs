@@ -9,13 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using BeautySolutions.View.ViewModel;
+using MaterialDesignThemes.Wpf;
+using Dietapp;
+using CoffeeShop.BUS;
+using CoffeeShop.Database.Models;
+using CoffeeShop.Database;
+using CoffeeShop.View;
+using CoffeeShop;
+using System.Security.Principal;
 
 namespace CoffeeShop
 {
@@ -72,6 +74,23 @@ namespace CoffeeShop
 
             //var screen = new Menu.MenuList();
             //StackPanelMain.Children.Add(screen);
+
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!DBConfig.EnsureSqlLocalDb())
+            {
+                var window = new MissingFeatureWindow();
+                window.Closed += (s, e2) =>
+                {
+                    this.Show();
+                    MainWindow_Loaded(this, new RoutedEventArgs());
+                };
+                this.Hide();
+                window.ShowDialog();
+            }
         }
 
         private void LoginScreen_BtnSale_Click(object sender, RoutedEventArgs e)
