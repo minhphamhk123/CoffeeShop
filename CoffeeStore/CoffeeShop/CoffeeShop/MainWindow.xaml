@@ -12,8 +12,7 @@
         Top="0"
         Icon="Images/icon.png" VerticalAlignment="Top"
         Closing="Window_Closing"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        >
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="btv" />
 

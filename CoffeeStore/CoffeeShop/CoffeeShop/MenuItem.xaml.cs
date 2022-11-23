@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStore
+namespace CoffeeShop
 {
     /// <summary>
     /// Interaction logic for MenuItem.xaml
@@ -32,6 +32,7 @@ namespace CoffeeStore
             ListViewItemMenu.Visibility = itemMenu.SubItems == null ? Visibility.Visible : Visibility.Collapsed;
             this.DataContext = itemMenu;
         }
+        
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SubItem item = (SubItem)((ListView)sender).SelectedItem;
