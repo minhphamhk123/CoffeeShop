@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +13,9 @@ namespace CoffeeShop.DAL
         public void delete(String exportID)
         {
             String sql = $"delete from InventoryExportDetail where exportID='{exportID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception)
             {
@@ -29,8 +27,7 @@ namespace CoffeeShop.DAL
             {
                 try
                 {
-                    SQLiteCommand insert = new SQLiteCommand(s, getConnection().OpenAndReturn());
-                    insert.ExecuteNonQuery();
+                    DataProvider.Instance.ExecuteNoneQuery(s);
                 }
                 catch (Exception ex)
                 {
@@ -45,9 +42,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select * from InventoryExportDetail";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listDetail = new DataTable();
-                da.Fill(listDetail);
+                DataTable listDetail = DataProvider.Instance.ExecuteQuery(sql);
                 return listDetail;
             }
             catch (Exception e)
@@ -64,9 +59,7 @@ namespace CoffeeShop.DAL
                             $"from InventoryExportDetail detail Join Material mater " +
                             $"on detail.MaterialID= mater.MaterialID " +
                             $"group by materialname";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listImportDetail = new DataTable();
-                da.Fill(listImportDetail);
+                DataTable listImportDetail = DataProvider.Instance.ExecuteQuery(sql);
                 return listImportDetail;
             }
             catch (Exception e)
@@ -84,9 +77,7 @@ namespace CoffeeShop.DAL
                             $"from InventoryExportDetail detail Join Material mater " +
                             $"on detail.MaterialID= mater.MaterialID where materialName like '%{key}%' or unit like '%{key}%' " +
                             $"group by materialname";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listImportDetail = new DataTable();
-                da.Fill(listImportDetail);
+                DataTable listImportDetail = DataProvider.Instance.ExecuteQuery(sql);
                 return listImportDetail;
             }
             catch (Exception e)

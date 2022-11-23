@@ -120,7 +120,7 @@ namespace CoffeeShop.DAL
             SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                insert.ExecuteNonQuery();
+                insert.ExecuteNoneQuery();
             }
             catch (Exception ex)
             {
@@ -133,7 +133,7 @@ namespace CoffeeShop.DAL
             SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                return insert.ExecuteNonQuery() > 0;
+                return insert.ExecuteNoneQuery() > 0;
             }
             catch (Exception ex)
             {
@@ -146,7 +146,7 @@ namespace CoffeeShop.DAL
             SQLiteCommand update = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                return update.ExecuteNonQuery() > 0;
+                return update.ExecuteNoneQuery() > 0;
             }
             catch (Exception ex)
             {

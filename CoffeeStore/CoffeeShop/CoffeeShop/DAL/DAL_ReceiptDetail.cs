@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +14,9 @@ namespace CoffeeShop.DAL
         {
             //insert SQLite 
             string sql = $"INSERT INTO ReceiptDetail (ReceiptID, BeverageID, Amount, Price) VALUES ('{newReceiptDetail.ReceiptID}', '{newReceiptDetail.BeverageID}', {newReceiptDetail.Amount}, {newReceiptDetail.Price})";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                insert.ExecuteNonQuery();
-                return true;
+                DataProvider.Instance.ExecuteNoneQuery(sql); return true;
             }
             catch (Exception ex)
             {
@@ -34,8 +31,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"SELECT Time, EmployeeName, BeverageName, Amount, DiscountID, ReceiptDetail.Price as UnitPrice, sum(Amount * ReceiptDetail.Price) as Total from Receipt join ReceiptDetail on Receipt.ReceiptID = ReceiptDetail.ReceiptID join Employees on Receipt.EmployeeID = Employees.EmployeeID join BeverageName on ReceiptDetail.BeverageID = BeverageName.BeverageID where Receipt.ReceiptID = '{id}' group by BeverageName";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(receiptDetails);
+                receiptDetails = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {
@@ -47,11 +43,9 @@ namespace CoffeeShop.DAL
         public bool DeleteDetailByID(string id)
         {
             string sql = $"delete from ReceiptDetail where ReceiptID = '{id}'";
-            SQLiteCommand delete = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                delete.ExecuteNonQuery();
-                return true;
+                DataProvider.Instance.ExecuteNoneQuery(sql); return true;
             }
             catch (Exception ex)
             {

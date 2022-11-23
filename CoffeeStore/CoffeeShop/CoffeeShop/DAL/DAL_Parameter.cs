@@ -17,8 +17,7 @@ namespace CoffeeShop.DAL
             {
                 DataTable value = new DataTable();
                 string sql = $"Select Value From Parameter Where Name = '{valueName}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(value);
+                value = DataProvider.Instance.ExecuteQuery(sql);
                 rows = Int32.Parse(value.Rows[0].ItemArray[0].ToString());
             }
             catch (Exception ex)
@@ -33,8 +32,7 @@ namespace CoffeeShop.DAL
             string sql = $"update Parameter set Value = {value} Where Name = '{valueName}'";
             try
             {
-                SQLiteCommand edit = new SQLiteCommand(sql, getConnection().OpenAndReturn());
-                edit.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception ex)

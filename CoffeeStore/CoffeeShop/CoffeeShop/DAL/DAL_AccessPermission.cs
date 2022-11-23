@@ -20,13 +20,11 @@ namespace CoffeeShop.DAL
             {
                 // create columns of datatable for show
                 string sql = $"select AccessPermissionName from AccessPermission";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(perListData);
+                perListData = DataProvider.Instance.ExecuteQuery(sql);
 
                 // create rows of datatable for show
                 sql = $"select * from EmployeeType limit {limit} offset {offset}";
-                da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(accessInfo);
+                accessInfo = DataProvider.Instance.ExecuteQuery(sql);
 
                 for (int i = 0; i < perListData.Rows.Count; i++)
                 {
@@ -41,8 +39,7 @@ namespace CoffeeShop.DAL
                         accessInfo.Rows[i][perListData.Rows[j].ItemArray[0].ToString()] = "0";
 
                 sql = $"select EmployeeType.EmployeeTypeName, AccessPermission.AccessPermissionName from EmployeeType join AccessPermission on EmployeeType.EmployeeTypeID = AccessPermissionGroup.EmployeeTypeID join AccessPermissionGroup on AccessPermissionGroup.AccessPermissionID = AccessPermission.AccessPermissionID";
-                da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(accessData);
+                accessData = DataProvider.Instance.ExecuteQuery(sql);
 
                 foreach (DataRow row in accessData.Rows)
                 {
@@ -70,8 +67,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select * from AccessPermission";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(accPers);
+                accPers = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch
             {
@@ -88,8 +84,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select AccessPermissionID from AccessPermission where AccessPermissionName = '{name}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empTypeName);
+                empTypeName = DataProvider.Instance.ExecuteQuery(sql);
                 id = empTypeName.Rows[0].ItemArray[0].ToString();
             }
             catch

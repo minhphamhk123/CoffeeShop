@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +16,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select Password from Employees where EmployeeID = '{ID}' and State = '1'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listPass = new DataTable();
-                da.Fill(listPass);
+                DataTable listPass = DataProvider.Instance.ExecuteQuery(sql);
                 pass = listPass.Rows[0].ItemArray[0].ToString();
             }
             catch (Exception ex)
@@ -35,9 +32,8 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeTypeID from Employees where EmployeeID = '{ID}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listPass = new DataTable();
-                da.Fill(listPass);
+               //SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
+                DataTable listPass = DataProvider.Instance.ExecuteQuery(sql);
                 type = listPass.Rows[0].ItemArray[0].ToString();
             }
             catch (Exception ex)
@@ -53,9 +49,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeName from Employees where EmployeeID = '{ID}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listPass = new DataTable();
-                da.Fill(listPass);
+                DataTable listPass = DataProvider.Instance.ExecuteQuery(sql);
                 name = listPass.Rows[0].ItemArray[0].ToString();
             }
             catch (Exception ex)
@@ -72,8 +66,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeID, EmployeeName, EmployeeType.EmployeeTypeName, Password from Employees join EmployeeType on Employees.EmployeeTypeID = EmployeeType.EmployeeTypeID where State = '1' and Employees.EmployeeID = '{ID}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empData);
+                empData = DataProvider.Instance.ExecuteQuery(sql);
                 emp = new DTO_Employees(empData.Rows[0]["EmployeeID"].ToString(), empData.Rows[0]["EmployeeName"].ToString(), empData.Rows[0]["EmployeeTypeName"].ToString(), empData.Rows[0]["Password"].ToString());
             }
             catch
@@ -89,8 +82,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select count(EmployeeID) from Employees";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(result);
+                result = DataProvider.Instance.ExecuteQuery(sql);
                 return Int32.Parse(result.Rows[0].ItemArray[0].ToString());
             }
             catch (Exception ex)
@@ -106,8 +98,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select count(EmployeeID) from Employees where EmployeeTypeID = '{id}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(result);
+                result = DataProvider.Instance.ExecuteQuery(sql);
                 return Int32.Parse(result.Rows[0].ItemArray[0].ToString());
             }
             catch (Exception ex)
@@ -123,8 +114,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeID, EmployeeName, EmployeeType.EmployeeTypeName, Password, State from Employees join EmployeeType on Employees.EmployeeTypeID = EmployeeType.EmployeeTypeID LIMIT {limit} OFFSET {offset}";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(employees);
+                employees = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {
@@ -137,10 +127,10 @@ namespace CoffeeShop.DAL
         {
             //insert SQLite 
             string sql = $"insert into Employees('EmployeeID','EmployeeName','EmployeeTypeID','Password', 'State') VALUES ('{newEmp.EmployeeID}','{newEmp.EmployeeName}','{newEmp.EmployeeTypeID}','{newEmp.Password}', '1')";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception ex)
@@ -153,10 +143,10 @@ namespace CoffeeShop.DAL
         public bool EditEmployee(DTO_Employees editedEmp)
         {
             string sql = $"update Employees set EmployeeName = '{editedEmp.EmployeeName}', EmployeeTypeID = '{editedEmp.EmployeeTypeID}', Password = '{editedEmp.Password}' where EmployeeID = '{editedEmp.EmployeeID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception ex)
@@ -169,10 +159,9 @@ namespace CoffeeShop.DAL
         public bool EditPassword(string empID, string newPass)
         {
             string sql = $"update Employees set Password = '{newPass}' where EmployeeID = '{empID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception ex)
@@ -189,10 +178,10 @@ namespace CoffeeShop.DAL
                 sql = $"update Employees set State = '1' where EmployeeID = '{empID}'";
             else
                 sql = $"update Employees set State = '0' where EmployeeID = '{empID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception ex)
@@ -208,10 +197,10 @@ namespace CoffeeShop.DAL
             if (isDelete)
             {
                 string sql = $"delete from Employees where EmployeeID = '{empID}'";
-                SQLiteCommand delete = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+                
                 try
                 {
-                    delete.ExecuteNonQuery();
+                    DataProvider.Instance.ExecuteNoneQuery(sql);
                     return true;
                 }
                 catch (Exception ex)
@@ -232,26 +221,22 @@ namespace CoffeeShop.DAL
             {
                 DataTable countData = new DataTable();
                 string sql = $"select count(EmployeeID) from InventoryImport where EmployeeID = '{empID}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(countData);
+                countData = DataProvider.Instance.ExecuteQuery(sql);
                 if (countData.Rows[0].ItemArray[0].ToString() != "0")
                     return true;
 
                 sql = $"select count(EmployeeID) from InventoryExport where EmployeeID = '{empID}'";
-                da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(countData);
+                countData = DataProvider.Instance.ExecuteQuery(sql);
                 if (countData.Rows[0].ItemArray[0].ToString() != "0")
                     return true;
 
                 sql = $"select count(EmployeeID) from Receipt where EmployeeID = '{empID}'";
-                da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(countData);
+                countData = DataProvider.Instance.ExecuteQuery(sql);
                 if (countData.Rows[0].ItemArray[0].ToString() != "0")
                     return true;
 
                 sql = $"select count(EmployeeID) from PaymentVoucher where EmployeeID = '{empID}'";
-                da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(countData);
+                countData = DataProvider.Instance.ExecuteQuery(sql);
                 if (countData.Rows[0].ItemArray[0].ToString() != "0")
                     return true;
 

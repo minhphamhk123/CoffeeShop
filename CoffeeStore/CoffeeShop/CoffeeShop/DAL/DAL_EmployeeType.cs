@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +16,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select * from EmployeeType";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empTypes);
+                empTypes = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch
             {
@@ -33,8 +31,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select count(EmployeeTypeID) from EmployeeType";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empTypes);
+                empTypes = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch
             {
@@ -50,8 +47,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeTypeName from EmployeeType where EmployeeTypeID = '{id}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empTypeName);
+                empTypeName = DataProvider.Instance.ExecuteQuery(sql);
                 name = empTypeName.Rows[0].ItemArray[0].ToString();
             }
             catch
@@ -68,8 +64,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select EmployeeTypeID from EmployeeType where EmployeeTypeName = '{name}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(empTypeName);
+                empTypeName = DataProvider.Instance.ExecuteQuery(sql);
                 id = empTypeName.Rows[0].ItemArray[0].ToString();
             }
             catch
@@ -90,10 +85,10 @@ namespace CoffeeShop.DAL
 
             //insert SQLite
             string sql = $"insert into EmployeeType('EmployeeTypeID','EmployeeTypeName') VALUES ('{newEmpType.EmployeeTypeID}','{newEmpType.EmployeeTypeName}')";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return newEmpType.EmployeeTypeID;
             }
             catch (Exception )
@@ -108,10 +103,10 @@ namespace CoffeeShop.DAL
             if (isDelete)
             {
                 string sql = $"delete from EmployeeType where EmployeeTypeID = '{typeID}'";
-                SQLiteCommand delete = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+                
                 try
                 {
-                    delete.ExecuteNonQuery();
+                    DataProvider.Instance.ExecuteNoneQuery(sql);
                     return 1;
                 }
                 catch
@@ -131,8 +126,7 @@ namespace CoffeeShop.DAL
             {
                 DataTable countData = new DataTable();
                 string sql = $"select count(EmployeeTypeID) from Employees where EmployeeTypeID = '{typeID}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(countData);
+                countData = DataProvider.Instance.ExecuteQuery(sql);
                 if (countData.Rows[0].ItemArray[0].ToString() != "0")
                     return false;
 
@@ -147,10 +141,10 @@ namespace CoffeeShop.DAL
         public bool EditEmployeeType(DTO_EmployeeType editEmpType)
         {
             string sql = $"update EmployeeType set EmployeeTypeName = '{editEmpType.EmployeeTypeName}' where EmployeeTypeID = '{editEmpType.EmployeeTypeID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception )
