@@ -1,5 +1,4 @@
 ﻿using BeautySolutions.View.ViewModel;
-using CoffeeShop;
 using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
