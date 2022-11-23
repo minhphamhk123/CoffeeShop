@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +12,8 @@ namespace CoffeeShop.DAL
         public DataTable getAllDiscount()
         {
             string sql = $"select DiscountID , DiscountName , StartDate, EndDate, DiscountValue  from discount order by enddate DESC";
-            SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
             DataTable dt = new DataTable();
-            da.Fill(dt);
+            dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
         }
         public DTO_Discount findDiscount(string ID)
@@ -24,17 +22,14 @@ namespace CoffeeShop.DAL
             DTO_Discount dto = new DTO_Discount();
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    dto.DiscountID = ID;
-                    dto.DiscountName = reader["DiscountName"].ToString();
-                    dto.StartDate = reader["StartDate"].ToString();
-                    dto.EndDate = reader["EndDate"].ToString();
-                    dto.DiscountValue = float.Parse(reader["DiscountValue"].ToString());
-                }
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+
+                dto.DiscountID = ID;
+                dto.DiscountName = (string)dt.Rows[0]["DiscountName"].ToString();
+                dto.StartDate = (string)dt.Rows[0]["StartDate"].ToString();
+                dto.EndDate = (string)dt.Rows[0]["EndDate"].ToString();
+                dto.DiscountValue = float.Parse((string)dt.Rows[0]["DiscountValue"].ToString());
+
             }
             catch (Exception e)
             {
@@ -45,9 +40,9 @@ namespace CoffeeShop.DAL
         public DataTable findDiscount(string startdate, string enddate)
         {
             string sql = $"select DiscountID as 'Mã giảm giá', DiscountName as 'Tên ưu đãi', DiscountValue as 'Mức ưu đãi (%)', StartDate as 'Ngày bắt đầu', EndDate as 'Ngày kết thúc' from discount where startdate>=" + startdate + " and enddate<=" + enddate;
-            SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
+            
             DataTable dt = new DataTable();
-            da.Fill(dt);
+            dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
         }
 
@@ -57,10 +52,7 @@ namespace CoffeeShop.DAL
             string sql = $"Insert into Discount (DiscountID, DiscountName, StartDate, EndDate, DiscountValue, Description) values ('" + createID() + "','" + dTO_Discount.DiscountName + "','" + dTO_Discount.StartDate + "','" + dTO_Discount.EndDate + "'," + dTO_Discount.DiscountValue + ",'" + dTO_Discount.Description + "');";
             try
             {
-                SQLiteCommand sqlite = getConnection().CreateCommand();
-                sqlite.CommandText = sql;
-                sqlite.Connection.Open();
-                result = sqlite.ExecuteNonQuery();
+                result = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception)
             {
@@ -72,17 +64,18 @@ namespace CoffeeShop.DAL
         {
             string ID = "DC";
             string sql = "Select DiscountID from Discount";
-            int count = 0;
             int max = 0;
-            SQLiteCommand sqlite = new SQLiteCommand(sql, getConnection());
-            sqlite.Connection.Open();
-            SQLiteDataReader reader = sqlite.ExecuteReader();
-            while (reader.Read())
-            {
-                count = Int32.Parse(reader["DiscountID"].ToString().Remove(0, 2));
-                if (count > max)
-                    max = count;
-            };
+            //SQLiteCommand sqlite = new SQLiteCommand(sql, getConnection());
+            //sqlite.Connection.Open();
+            //SQLiteDataReader reader = sqlite.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    count = Int32.Parse(reader["DiscountID"].ToString().Remove(0, 2));
+            //    if (count > max)
+            //        max = count;
+            //};
+            DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+            max = Int32.Parse(dt.Rows[dt.Rows.Count-1]["DiscountID"].ToString().Remove(0, 2));
             max++;
             ID = ID + max.ToString();
             return ID;
@@ -93,10 +86,7 @@ namespace CoffeeShop.DAL
             int rs = 0;
             try
             {
-                SQLiteCommand sqlite = getConnection().CreateCommand();
-                sqlite.CommandText = sql;
-                sqlite.Connection.Open();
-                rs = sqlite.ExecuteNonQuery();
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -108,10 +98,8 @@ namespace CoffeeShop.DAL
         public int deleteDiscount(string discountID)
         {
             string sql = $"Delete from Discount where DiscountID = '" + discountID + "'";
-            SQLiteCommand sqlite = getConnection().CreateCommand();
-            sqlite.CommandText = sql;
-            sqlite.Connection.Open();
-            return sqlite.ExecuteNonQuery();
+          
+            return DataProvider.Instance.ExecuteNoneQuery(sql);
         }
 
         public DTO_Discount GetCurrentDiscout()

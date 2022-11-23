@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +13,7 @@ namespace CoffeeShop.DAL
         public DataTable getAllPayment()
         {
             string sql = $"Select PaymentID, Time, EmployeeName, TotalAmount From Employees e, PaymentVoucher pv Where pv.EmployeeID=e.EmployeeID";
-            SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
         }
         public DataTable findPaymentbyID(string ID)
@@ -26,9 +23,7 @@ namespace CoffeeShop.DAL
                 sql = $"Select PaymentID, Time, EmployeeName, TotalAmount, Description From Employees e, PaymentVoucher pv Where pv.EmployeeID=e.EmployeeID and paymentID='" + ID + "'";
             else
                 sql = $"Select PaymentID, Time, EmployeeName, TotalAmount, Description From Employees e, PaymentVoucher pv Where pv.EmployeeID=e.EmployeeID";
-            SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+            DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
         }
         public int createNewPayment(DTO_Payment Payment)
@@ -37,9 +32,8 @@ namespace CoffeeShop.DAL
             string sql = $"Insert into PaymentVoucher values ('" + Payment.PaymentID + "'," + Payment.TotalAmount + ",'" + Payment.Description + "','" + Payment.EmployeeID + "','" + Payment.Time + "')";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                rs = command.ExecuteNonQuery();
+                
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -53,9 +47,7 @@ namespace CoffeeShop.DAL
             string sql = $"Delete From PaymentVoucher Where PaymentID='" + id + "'";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                rs = command.ExecuteNonQuery();
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -70,9 +62,7 @@ namespace CoffeeShop.DAL
             string sql = $"Update PaymentVoucher set PaymentID='" + Payment.PaymentID + "', EmployeeID='" + Payment.EmployeeID + "', TotalAmount=" + Payment.TotalAmount + ",Time='" + Payment.Time + "',Description='" + Payment.Description + "' Where PaymentID='" + Payment.PaymentID + "'";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                rs = command.ExecuteNonQuery();
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -88,15 +78,17 @@ namespace CoffeeShop.DAL
             string sql = "Select PaymentID from PaymentVoucher";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    count = Int16.Parse(reader["PaymentID"].ToString().Remove(0, 1));
-                    if (count > max)
-                        max = count;
-                }
+                //SQLiteCommand command = new SQLiteCommand(sql, getConnection());
+                //command.Connection.Open();
+                //SQLiteDataReader reader = command.ExecuteReader();
+                //while (reader.Read())
+                //{
+                //    count = Int16.Parse(reader["PaymentID"].ToString().Remove(0, 1));
+                //    if (count > max)
+                //        max = count;
+                //}
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+                max = Int16.Parse(dt.Rows[dt.Rows.Count - 1]["PaymentID"].ToString().Remove(0, 1));
                 max++;
                 ID += max.ToString();
             }
@@ -112,13 +104,21 @@ namespace CoffeeShop.DAL
             string sql = $"Select EmployeeName From Employees";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                //SQLiteCommand command = new SQLiteCommand(sql, getConnection());
+                //command.Connection.Open();
+                //SQLiteDataReader reader = command.ExecuteReader();
+                //while (reader.Read())
+                //{
+                //    Employee.Add(reader["EmployeeName"].ToString());
+                //}
+
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+
+                foreach (DataRow row in dt.Rows)
                 {
-                    Employee.Add(reader["EmployeeName"].ToString());
+                    Employee.Add(row["EmployeeName"].ToString());
                 }
+
             }
             catch (Exception e)
             {
@@ -132,11 +132,13 @@ namespace CoffeeShop.DAL
             string sql = $"Select EmployeeID from Employees where EmployeeName='" + employeename + "'";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader value = command.ExecuteReader();
-                while (value.Read())
-                    EmployeeID = value["EmployeeID"].ToString();
+                //SQLiteCommand command = new SQLiteCommand(sql, getConnection());
+                //command.Connection.Open();
+                //SQLiteDataReader value = command.ExecuteReader();
+                //while (value.Read())
+                //    EmployeeID = value["EmployeeID"].ToString();
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+                EmployeeID = dt.Rows[0]["EmployeeID"].ToString();
             }
             catch (Exception e)
             {
@@ -157,9 +159,7 @@ namespace CoffeeShop.DAL
                     sql = $"Select PaymentID, PaymentVoucher, EmployeeName, Price From PaymentVoucher BN, Employee BT Where BN.EmployeeID=BT.EmployeeID and (BT.EmployeeName='" + type + "' and BN.PaymentVoucher like '%" + name + "%')";
                 else if (type.Length == 0 && name.Length != 0)
                     sql = $"Select PaymentID, PaymentVoucher, EmployeeName, Price From PaymentVoucher BN, Employee BT Where BN.EmployeeID=BT.EmployeeID and ( BN.PaymentVoucher like '%" + name + "%')";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable PaymentList = new DataTable();
-                da.Fill(PaymentList);
+                DataTable PaymentList = DataProvider.Instance.ExecuteQuery(sql);
                 return PaymentList;
             }
             catch (Exception e)
@@ -175,8 +175,7 @@ namespace CoffeeShop.DAL
             string sql = $"select substr(Time, 4, 2) as Month, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/%/{year} %' group by Month";
             try
             {
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(data);
+                data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {
@@ -191,8 +190,7 @@ namespace CoffeeShop.DAL
             string sql = $"select substr(Time, 1, 2) as Day, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/{month.ToString().PadLeft(2, '0')}/{year} %' group by Day";
             try
             {
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(data);
+                data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {

@@ -14,10 +14,10 @@ namespace CoffeeShop.DAL
         {
             //insert SQLite 
             string sql = $"insert into AccessPermissionGroup('EmployeeTypeID','AccessPermissionID') VALUES ('{newAccPerGr.EmployeeTypeID}','{newAccPerGr.AccessPermissionID}')";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception )
@@ -29,10 +29,10 @@ namespace CoffeeShop.DAL
         public bool DeleteAccessPermissionGroup(DTO_AccessPermissionGroup deleteAccPerGr)
         {
             string sql = $"delete from AccessPermissionGroup where AccessPermissionID = '{deleteAccPerGr.AccessPermissionID}' and EmployeeTypeID = '{deleteAccPerGr.EmployeeTypeID}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch (Exception )
@@ -44,10 +44,9 @@ namespace CoffeeShop.DAL
         public bool DeleteByEmpTypeID(string id)
         {
             string sql = $"delete from AccessPermissionGroup where EmployeeTypeID = '{id}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return true;
             }
             catch
@@ -62,8 +61,7 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select count(EmployeeTypeID) from AccessPermissionGroup where AccessPermissionID = '{permissionID}' and EmployeeTypeID = '{typeId}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(data);
+                data = DataProvider.Instance.ExecuteQuery(sql);
                 if (data.Rows[0].ItemArray[0].ToString() == "1")
                     return true;
             }

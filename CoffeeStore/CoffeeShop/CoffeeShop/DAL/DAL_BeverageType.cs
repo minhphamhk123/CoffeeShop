@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +16,13 @@ namespace CoffeeShop.DAL
             string sql = $"Select BeverageTypeName, BeverageTypeID From BeverageType";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+
+                foreach (DataRow row in dt.Rows)
                 {
                     DTO_BeverageType dto = new DTO_BeverageType();
-                    dto.BeverageTypeID = reader["BeverageTypeID"].ToString();
-                    dto.BeverageTypeName = reader["BeverageTypeName"].ToString();
+                    dto.BeverageTypeID = row["BeverageTypeID"].ToString();
+                    dto.BeverageTypeName = row["BeverageTypeName"].ToString();
                     BeverageType.Add(dto);
                 }
             }
@@ -40,9 +38,7 @@ namespace CoffeeShop.DAL
             string sql = $"Insert into BeverageType values ('" + beveragetype.BeverageTypeID + "','" + beveragetype.BeverageTypeName + "')";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                rs = command.ExecuteNonQuery();
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -57,9 +53,7 @@ namespace CoffeeShop.DAL
             if (checkConditionToDelete(id))
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                    command.Connection.Open();
-                    rs = command.ExecuteNonQuery();
+                    rs = DataProvider.Instance.ExecuteNoneQuery(sql);
                 }
                 catch (Exception ex)
                 {
@@ -74,9 +68,8 @@ namespace CoffeeShop.DAL
             string sql = $"Update BeverageType set BeverageTypeName='" + beveragetype.BeverageTypeName + "' Where BeverageTypeID='" + beveragetype.BeverageTypeID + "'";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                rs = command.ExecuteNonQuery();
+                
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql);
             }
             catch (Exception ex)
             {
@@ -93,17 +86,10 @@ namespace CoffeeShop.DAL
             string sql = "Select BeverageTypeID from BeverageType";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    count = Int16.Parse(reader["BeverageTypeID"].ToString().Remove(0, 2));
-                    if (count > max)
-                        max = count;
-                }
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+                max = Int32.Parse(dt.Rows[dt.Rows.Count - 1]["BeverageTypeID"].ToString().Remove(0, 2));
                 max++;
-                ID += max.ToString();
+                ID = ID + max.ToString();
             }
             catch (Exception e)
             {
@@ -117,14 +103,13 @@ namespace CoffeeShop.DAL
             string sql = $"Select BeverageTypeName, BeverageTypeID From BeverageType Where BeverageTypeName like'%" + type + "%'";
             try
             {
-                SQLiteCommand command = new SQLiteCommand(sql, getConnection());
-                command.Connection.Open();
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+                foreach (DataRow row in dt.Rows)
                 {
                     DTO_BeverageType dto = new DTO_BeverageType();
-                    dto.BeverageTypeID = reader["BeverageTypeID"].ToString();
-                    dto.BeverageTypeName = reader["BeverageTypeName"].ToString();
+                    dto.BeverageTypeID = row["BeverageTypeID"].ToString();
+                    dto.BeverageTypeName = row["BeverageTypeName"].ToString();
                     BeverageType.Add(dto);
                 }
             }
@@ -140,11 +125,14 @@ namespace CoffeeShop.DAL
             bool result = true;
             try
             {
-                string sql = $"Select BeverageTypeID From Beverage Where BeverageTypeID='" + ID + "'";
-                SQLiteCommand cmd = new SQLiteCommand(sql, getConnection());
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                    result = false;
+                 string sql = $"Select BeverageTypeID From Beverage Where BeverageTypeID='" + ID + "'";
+            //    SQLiteCommand cmd = new SQLiteCommand(sql, getConnection());
+            //    SQLiteDataReader reader = cmd.ExecuteReader();
+            //    if (reader.Read())
+            //        result = false;
+
+                DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
+                if (dt.Rows.Count > 0) return false;
             }
             catch (Exception e)
             {

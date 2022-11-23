@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +15,8 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select employeename, importid, importdate from InventoryImport Imp Join Employees employ on employ.EmployeeID=Imp.EmployeeID ";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listImport = new DataTable();
-                da.Fill(listImport);
+                
+                DataTable listImport = DataProvider.Instance.ExecuteQuery(sql);
                 return listImport;
             }
             catch (Exception e)
@@ -35,9 +33,7 @@ namespace CoffeeShop.DAL
             {
                 string sql = $"select amount,price  from InventoryImportDetail detail " +
                                  $"Join Material mater on detail.MaterialID= mater.MaterialID  where importID='{id}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable list = new DataTable();
-                da.Fill(list);
+                DataTable list = DataProvider.Instance.ExecuteQuery(sql);
                 foreach (DataRow row in list.Rows)
                 {
                     string amount = row["amount"].ToString();
@@ -57,9 +53,7 @@ namespace CoffeeShop.DAL
             //Get max MaterialID
             String id = "Imp0000000";
             string tempSQL = "SELECT importID FROM InventoryImport order by importID desc LIMIT 1 ";
-            SQLiteDataAdapter da = new SQLiteDataAdapter(tempSQL, getConnection());
-            DataTable maxId = new DataTable();
-            da.Fill(maxId);
+            DataTable maxId = DataProvider.Instance.ExecuteQuery(tempSQL);
             foreach (DataRow row in maxId.Rows)
             {
                 id = row["importID"].ToString();
@@ -72,19 +66,17 @@ namespace CoffeeShop.DAL
             //get employid from name 
             String employId = "";
             string tempSQL1 = $"select employeeid from Employees where employeename= '{name}' ";
-            SQLiteDataAdapter da1 = new SQLiteDataAdapter(tempSQL1, getConnection());
-            DataTable employid = new DataTable();
-            da1.Fill(employid);
+            DataTable employid = DataProvider.Instance.ExecuteQuery(tempSQL1);
             foreach (DataRow row in employid.Rows)
             {
                 employId = row["EmployeeID"].ToString();
             }
             //insert SQLite 
             string sql = $"insert into InventoryImport('ImportID','EmployeeID','ImportDate') VALUES ('{newID}','{employId}','{date}');";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                insert.ExecuteNonQuery();
+                DataProvider.Instance.ExecuteNoneQuery(sql);
                 return newID;
             }
             catch (Exception ex)
@@ -95,10 +87,10 @@ namespace CoffeeShop.DAL
         public bool Delete(String id)
         {
             string sql = $"delete from inventoryImport where ImportID='{id}'";
-            SQLiteCommand insert = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                return insert.ExecuteNonQuery() > 0;
+                return DataProvider.Instance.ExecuteNoneQuery(sql) > 0;
             }
             catch (Exception)
             {
@@ -108,10 +100,10 @@ namespace CoffeeShop.DAL
         public bool Update(String id, String employID, String date)
         {
             string sql = $"update inventoryImport set employeeID='{employID}', ImportDate = '{date}'  where importID='{id}'";
-            SQLiteCommand update = new SQLiteCommand(sql, getConnection().OpenAndReturn());
+            
             try
             {
-                return update.ExecuteNonQuery() > 0;
+                return DataProvider.Instance.ExecuteNoneQuery(sql) > 0;
             }
             catch (Exception)
             {
@@ -123,9 +115,8 @@ namespace CoffeeShop.DAL
             try
             {
                 string sql = $"select detail.materialid as 'ID' ,materialname as 'Tên',amount as 'Số lượng',price as 'Đơn giá',unit as 'Đơn vị tính' from InventoryImportDetail detail Join Material mater on detail.MaterialID= mater.MaterialID  where importID='{id}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listImport = new DataTable();
-                da.Fill(listImport);
+                
+                DataTable listImport = DataProvider.Instance.ExecuteQuery(sql);
                 return listImport;
             }
             catch (Exception e)
@@ -141,9 +132,7 @@ namespace CoffeeShop.DAL
             {
                 string sql = $"select materialname, impDetail.Amount from Material mater JOIN InventoryImportDetail impDetail on mater.materialid=impDetail.MaterialID " +
                     $"JOIN InventoryImport imp on imp.ImportID= impDetail.ImportID where imp.ImportID='{id}'";
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                DataTable listImport = new DataTable();
-                da.Fill(listImport);
+                DataTable listImport = DataProvider.Instance.ExecuteQuery(sql);
                 return listImport;
             }
             catch (Exception e)
@@ -159,8 +148,7 @@ namespace CoffeeShop.DAL
             string sql = $"select substr(ImportDate, 4, 2) as Month, sum(Amount * Price) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/%/{year}' group by Month";
             try
             {
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(data);
+                data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {
@@ -175,8 +163,7 @@ namespace CoffeeShop.DAL
             string sql = $"select substr(ImportDate, 1, 2) as Day, sum(Amount * Price) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/{month.ToString().PadLeft(2, '0')}/{year}' group by Day";
             try
             {
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, getConnection());
-                da.Fill(data);
+                data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
             {
