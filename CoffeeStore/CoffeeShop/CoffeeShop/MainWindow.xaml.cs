@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BeautySolutions.View.ViewModel;
+using CoffeeShop.BUS;
+using CoffeeShop.View;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
