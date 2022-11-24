@@ -100,9 +100,14 @@ namespace CoffeeShop.View
             InitializeComponent();
             PrintScreen.Children.Clear();
             _context = mainWindow;
-            LoadData();
             user = userID;
             tblockUsername.Text = user;
+            Loaded += Cashier_Loaded;
+        }
+
+        private void Cashier_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadData();
         }
 
         public void SetCurrrentUser(string userID)

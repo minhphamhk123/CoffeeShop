@@ -29,7 +29,6 @@ namespace CoffeeShop.Inventory
             InitializeComponent();
 
             dataGridMaterial.LoadingRow += new EventHandler<DataGridRowEventArgs>(datagrid_LoadingRow);
-            LoadData();
             Loaded += LoadData;
         }
         public void LoadData(Object sender, RoutedEventArgs e)

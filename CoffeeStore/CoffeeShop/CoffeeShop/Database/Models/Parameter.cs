@@ -11,7 +11,7 @@ namespace CoffeeShop.Database.Models
     [Table("Parameter")]
     public class Parameter
     {
-        [Key, MaxLength(10)]
+        [Key, MaxLength(20)]
         public string Name { get; set; }
 
         public int Value { get; set; }

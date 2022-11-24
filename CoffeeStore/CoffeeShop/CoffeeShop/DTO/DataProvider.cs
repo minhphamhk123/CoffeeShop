@@ -36,12 +36,13 @@ namespace CoffeeShop.DTO
         {
             DataTable data = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (var db = DBContext.CreateInstance())
             {
+                var connection = db.Database.Connection;
                 connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
-
+                var command = connection.CreateCommand();
+                command.CommandText = query;
 
                 if (parameter != null)
                 {
@@ -53,19 +54,17 @@ namespace CoffeeShop.DTO
                     {
                         if (item.Contains('@'))
                         {
-
-                            command.Parameters.AddWithValue(item, parameter[i]);
-
+                            var commandParam = command.CreateParameter();
+                            commandParam.ParameterName = item;
+                            commandParam.Value = parameter[i];
+                            command.Parameters.Add(commandParam);
                             i++;
                         }
                     }
                 }
 
-
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                adapter.Fill(data);
-
+                var reader = command.ExecuteReader();
+                data.Load(reader);
                 connection.Close();
             }
 
@@ -83,14 +82,14 @@ namespace CoffeeShop.DTO
         {
             int data = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (var db = DBContext.CreateInstance())
             {
                 // Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
-
+                var connection = db.Database.Connection;
                 connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
-
+                var command = connection.CreateCommand();
+                command.CommandText = query;
 
                 if (parameter != null)
                 {
@@ -102,9 +101,10 @@ namespace CoffeeShop.DTO
                     {
                         if (item.Contains('@'))
                         {
-
-                            command.Parameters.AddWithValue(item, parameter[i]);
-
+                            var commandParam = command.CreateParameter();
+                            commandParam.ParameterName = item;
+                            commandParam.Value = parameter[i];
+                            command.Parameters.Add(commandParam);
                             i++;
                         }
                     }
@@ -126,18 +126,20 @@ namespace CoffeeShop.DTO
         /// <param name="query"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        public object ExecuteScalar(string query, object[] parameter = null)
+        public object? ExecuteScalar(string query, object[] parameter = null)
         {
             // Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC
 
-            object data = 0;
+            object? data = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (var db = DBContext.CreateInstance())
             {
+                // Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
+                var connection = db.Database.Connection;
                 connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
-
+                var command = connection.CreateCommand();
+                command.CommandText = query;
 
                 if (parameter != null)
                 {
@@ -149,9 +151,10 @@ namespace CoffeeShop.DTO
                     {
                         if (item.Contains('@'))
                         {
-
-                            command.Parameters.AddWithValue(item, parameter[i]);
-
+                            var commandParam = command.CreateParameter();
+                            commandParam.ParameterName = item;
+                            commandParam.Value = parameter[i];
+                            command.Parameters.Add(commandParam);
                             i++;
                         }
                     }

@@ -15,12 +15,8 @@ namespace CoffeeShop.Database
     {
         public static DBContext CreateInstance()
         {
-            File.Delete(DBConfig.GetDBFilePath());
+            // File.Delete(DBConfig.GetDBFilePath());
             var context = new DBContext(DBConfig.GetConnectionString());
-            if (!context.Database.Exists())
-            {
-                InitDB(context);
-            }
             return context;
         }
 
@@ -50,16 +46,6 @@ namespace CoffeeShop.Database
             base.OnModelCreating(modelBuilder);
         }
 
-        private static void InitDB(DbContext context, bool force = false)
-        {
-            var db = context.Database;
-            File.Delete(DBConfig.GetDbLogFilePath());
-            db.Create();
-            using (var transaction = db.BeginTransaction())
-            {
-                db.ExecuteSqlCommand(File.ReadAllText(DBConfig.GetInitSQLFilePath(), Encoding.UTF8));
-                transaction.Commit();
-            }
-        }
+
     }
 }

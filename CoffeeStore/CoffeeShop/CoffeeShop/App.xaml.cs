@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeeShop.Database;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,15 @@ namespace CoffeeShop
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            using (var context = DBContext.CreateInstance())
+            {
+                if (!context.Database.Exists())
+                {
+                    DBConfig.InitDB(context);
+                }
+            }
+        }
     }
 }
