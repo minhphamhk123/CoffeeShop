@@ -9,161 +9,161 @@ using CoffeeShop.Database;
 
 namespace CoffeeShop.DTO
 {
-    public class DataProvider
-    {
-        private static DataProvider instance;
-        public static DataProvider Instance
-        {
-            get
-            {
-                if (instance == null) instance = new DataProvider(); return instance;
-            }
-            private set { instance = value; }
-        }
+    //public class DataProvider
+    //{
+    //    private static DataProvider instance;
+    //    public static DataProvider Instance
+    //    {
+    //        get
+    //        {
+    //            if (instance == null) instance = new DataProvider(); return instance;
+    //        }
+    //        private set { instance = value; }
+    //    }
 
-        private DataProvider() { }
+    //    private DataProvider() { }
 
-        //private string connectionSTR = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyKhachSan;Integrated Security=True";
-        private string connectionSTR = DBConfig.GetConnectionString();
+    //    //private string connectionSTR = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyKhachSan;Integrated Security=True";
+    //    private string connectionSTR = DBConfig.GetConnectionString();
 
-        /// <summary>
-        /// Hàm thực hiện lệnh truyền vào và trả về bảng dữ liệu
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-        public DataTable ExecuteQuery(string query, object[] parameter = null)
-        {
-            DataTable data = new DataTable();
+    //    /// <summary>
+    //    /// Hàm thực hiện lệnh truyền vào và trả về bảng dữ liệu
+    //    /// </summary>
+    //    /// <param name="query"></param>
+    //    /// <param name="parameter"></param>
+    //    /// <returns></returns>
+    //    public DataTable ExecuteQuery(string query, object[] parameter = null)
+    //    {
+    //        DataTable data = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
-            {
-                connection.Open();
+    //        using (SqlConnection connection = new SqlConnection(connectionSTR))
+    //        {
+    //            connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
-
-
-                if (parameter != null)
-                {
-                    string[] listParameter = query.Split(' ');
-
-                    int i = 0;
-
-                    foreach (var item in listParameter)
-                    {
-                        if (item.Contains('@'))
-                        {
-
-                            command.Parameters.AddWithValue(item, parameter[i]);
-
-                            i++;
-                        }
-                    }
-                }
+    //            SqlCommand command = new SqlCommand(query, connection);
 
 
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
+    //            if (parameter != null)
+    //            {
+    //                string[] listParameter = query.Split(' ');
 
-                adapter.Fill(data);
+    //                int i = 0;
 
-                connection.Close();
-            }
+    //                foreach (var item in listParameter)
+    //                {
+    //                    if (item.Contains('@'))
+    //                    {
 
-            return data;
-        }
+    //                        command.Parameters.AddWithValue(item, parameter[i]);
 
-
-        /// <summary>
-        /// Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-        public int ExecuteNoneQuery(string query, object[] parameter = null)
-        {
-            int data = 0;
-
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
-            {
-                // Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
-
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(query, connection);
+    //                        i++;
+    //                    }
+    //                }
+    //            }
 
 
-                if (parameter != null)
-                {
-                    string[] listParameter = query.Split(' ');
+    //            SqlDataAdapter adapter = new SqlDataAdapter(command);
 
-                    int i = 0;
+    //            adapter.Fill(data);
 
-                    foreach (var item in listParameter)
-                    {
-                        if (item.Contains('@'))
-                        {
+    //            connection.Close();
+    //        }
 
-                            command.Parameters.AddWithValue(item, parameter[i]);
-
-                            i++;
-                        }
-                    }
-                }
+    //        return data;
+    //    }
 
 
-                data = command.ExecuteNonQuery();
+    //    /// <summary>
+    //    /// Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
+    //    /// </summary>
+    //    /// <param name="query"></param>
+    //    /// <param name="parameter"></param>
+    //    /// <returns></returns>
+    //    public int ExecuteNoneQuery(string query, object[] parameter = null)
+    //    {
+    //        int data = 0;
 
-                connection.Close();
-            }
+    //        using (SqlConnection connection = new SqlConnection(connectionSTR))
+    //        {
+    //            // Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
 
-            return data;
-        }
+    //            connection.Open();
 
-
-        /// <summary>
-        /// Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="parameter"></param>
-        /// <returns></returns>
-        public object ExecuteScalar(string query, object[] parameter = null)
-        {
-            // Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC
-
-            object data = 0;
-
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(query, connection);
+    //            SqlCommand command = new SqlCommand(query, connection);
 
 
-                if (parameter != null)
-                {
-                    string[] listParameter = query.Split(' ');
+    //            if (parameter != null)
+    //            {
+    //                string[] listParameter = query.Split(' ');
 
-                    int i = 0;
+    //                int i = 0;
 
-                    foreach (var item in listParameter)
-                    {
-                        if (item.Contains('@'))
-                        {
+    //                foreach (var item in listParameter)
+    //                {
+    //                    if (item.Contains('@'))
+    //                    {
 
-                            command.Parameters.AddWithValue(item, parameter[i]);
+    //                        command.Parameters.AddWithValue(item, parameter[i]);
 
-                            i++;
-                        }
-                    }
-                }
+    //                        i++;
+    //                    }
+    //                }
+    //            }
 
 
-                data = command.ExecuteScalar();
+    //            data = command.ExecuteNonQuery();
 
-                connection.Close();
-            }
+    //            connection.Close();
+    //        }
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+
+
+    //    /// <summary>
+    //    /// Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC
+    //    /// </summary>
+    //    /// <param name="query"></param>
+    //    /// <param name="parameter"></param>
+    //    /// <returns></returns>
+    //    public object ExecuteScalar(string query, object[] parameter = null)
+    //    {
+    //        // Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC
+
+    //        object data = 0;
+
+    //        using (SqlConnection connection = new SqlConnection(connectionSTR))
+    //        {
+    //            connection.Open();
+
+    //            SqlCommand command = new SqlCommand(query, connection);
+
+
+    //            if (parameter != null)
+    //            {
+    //                string[] listParameter = query.Split(' ');
+
+    //                int i = 0;
+
+    //                foreach (var item in listParameter)
+    //                {
+    //                    if (item.Contains('@'))
+    //                    {
+
+    //                        command.Parameters.AddWithValue(item, parameter[i]);
+
+    //                        i++;
+    //                    }
+    //                }
+    //            }
+
+
+    //            data = command.ExecuteScalar();
+
+    //            connection.Close();
+    //        }
+
+    //        return data;
+    //    }
+    //}
 }
