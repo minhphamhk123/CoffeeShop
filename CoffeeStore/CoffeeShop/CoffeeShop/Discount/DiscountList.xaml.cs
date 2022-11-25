@@ -204,7 +204,13 @@ namespace CoffeeShop.Discount
             {
                 MessageBox.Show("Ngày bắt đầu phải trước ngày kết thúc.");
                 return;
-            }    
+            }
+
+            if (tbDateStart.SelectedDate == null || tbDateEnd.SelectedDate == null)
+            {
+                return;
+            }
+
             this.findDiscount(tbDateStart.SelectedDate.Value.ToString("dd/MM/yyyy"), tbDateEnd.SelectedDate.Value.ToString("dd/MM/yyyy"));
         }
 

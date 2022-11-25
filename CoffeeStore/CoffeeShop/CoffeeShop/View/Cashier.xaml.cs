@@ -353,6 +353,11 @@ namespace CoffeeShop.View
 
         private void tboxAmountReceived_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(tboxAmountReceived.Text))
+            {
+                return;
+            }
+
             received = Int32.Parse(tboxAmountReceived.Text);
             if (tblockChange!=null)
                 tblockChange.Text = MoneyToString(received - total);
@@ -412,6 +417,16 @@ namespace CoffeeShop.View
             e.Handled = !e.Text.Any(x => Char.IsDigit(x));
             if (e.Text.Contains(" "))
                 e.Handled = false;
+
+            if (tboxAmountReceived.Text != "")
+            {
+                if (tboxAmountReceived.Text.Substring(0, 1) == "0")
+                {
+                    string[] txt = tboxAmountReceived.Text.Split('0');
+                    tboxAmountReceived.Text = txt[1];
+                }
+            }
+            
         }
 
         private void tboxAmountReceived_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -427,6 +442,20 @@ namespace CoffeeShop.View
                 ///
                 return;
             }
+
+            if (tboxAmountReceived.Text == "0" || tboxAmountReceived.Text == "")
+            {
+                MessageBox.Show("hãy nhập số tiền khách đưa");
+                return;
+            }
+
+            int _amountReceived = int.Parse(tboxAmountReceived.Text);
+            if (_amountReceived % 1000 != 0)
+            {
+                MessageBox.Show("Số tiền khách đưa phải là số chẵn chia hết cho 1000");
+                return;
+            }
+
 
             if (newReceiptID != "")
             {
