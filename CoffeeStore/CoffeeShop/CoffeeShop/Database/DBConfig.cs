@@ -12,7 +12,7 @@ namespace CoffeeShop.Database
 {
     internal class DBConfig
     {
-        private static string dbInstanceName = "test1";
+        private static string dbInstanceName = "t1";
         private static string dataFolderpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string GetConnectionString()
         {

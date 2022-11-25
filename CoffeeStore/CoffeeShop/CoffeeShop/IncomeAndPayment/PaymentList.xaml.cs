@@ -253,20 +253,28 @@ namespace CoffeeShop.IncomeAndPayment
             int count = 1;
             foreach (DataRow row in temp.Rows)
             {
-                string id = row["PaymentID"].ToString();
-                float money = float.Parse(row["TotalAmount"].ToString());
-                string employeename = row["EmployeeName"].ToString();
-                string time = row["Time"].ToString();
-                DateTime timefind = DateTime.ParseExact(time, "dd/MM/yyyy", null);
-                if (count >= (rowNumber - 1) * limitRow + 1 && count <= rowNumber * limitRow)
+                try
                 {
-                    if (DateTime.Compare(timefind, timeend) <= 0 && DateTime.Compare(timefind, timestart) >= 0)
+                    string id = row["PaymentID"].ToString();
+                    float money = float.Parse(row["TotalAmount"].ToString());
+                    string employeename = row["EmployeeName"].ToString();
+                    string time = row["Time"].ToString();
+                    //DateTime timefind = DateTime.ParseExact(time, "dd/MM/yyyy", null);
+                    DateTime timefind = DateTime.ParseExact(time, "dd/MM/yyyy HH:mm:ss tt", null);
+                    if (count >= (rowNumber - 1) * limitRow + 1 && count <= rowNumber * limitRow)
                     {
-                        list.Add(new DTO_Payment() { PaymentID = id, Time = time, EmployeeID = employeename, TotalAmount = money });
-                        count++;
+                        if (DateTime.Compare(timefind, timeend) <= 0 && DateTime.Compare(timefind, timestart) >= 0)
+                        {
+                            list.Add(new DTO_Payment() { PaymentID = id, Time = time, EmployeeID = employeename, TotalAmount = money });
+                            count++;
+                        }
                     }
+                    else count++;
                 }
-                else count++;
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             dgPayment.ItemsSource = list;
             find = true;
