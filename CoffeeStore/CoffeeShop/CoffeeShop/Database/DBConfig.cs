@@ -39,7 +39,7 @@ namespace CoffeeShop.Database
             return Path.GetFullPath("./BeverageName.sql");
         }
 
-        public static bool EnsureSqlLocalDb()
+        public static bool EnsureSqlLocalDb(bool needRestart = false)
         {
             ISqlLocalDbApi localDB = new SqlLocalDbApi();
 
@@ -60,7 +60,7 @@ namespace CoffeeShop.Database
                 {
                     manager.Start();
                 }
-                else
+                else if(needRestart)
                 {
                     manager.Restart();
                 }

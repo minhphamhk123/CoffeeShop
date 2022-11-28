@@ -16,11 +16,14 @@ namespace CoffeeShop
     {
         public App()
         {
-            using (var context = DBContext.CreateInstance())
+            if (DBConfig.EnsureSqlLocalDb(true))
             {
-                if (!context.Database.Exists())
+                using (var context = DBContext.CreateInstance())
                 {
-                    DBConfig.InitDB(context);
+                    if (!context.Database.Exists())
+                    {
+                        DBConfig.InitDB(context);
+                    }
                 }
             }
         }
