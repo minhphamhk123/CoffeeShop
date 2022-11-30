@@ -73,8 +73,14 @@ namespace CoffeeShop.Report
             DataTable InvImpData = busInvImp.GetTotalAmountByYear(dpMonthYear.SelectedDate.GetValueOrDefault().Year);
             foreach (DataRow row in InvImpData.Rows)
             {
-                Outcome[Int32.Parse(row["Month"].ToString()) - 1] = Int32.Parse(row["TotalAmount"].ToString());
-                Profit[Int32.Parse(row["Month"].ToString()) - 1] -= Int32.Parse(row["TotalAmount"].ToString());
+                float _outCome = float.Parse(row["Month"].ToString()) - 1;
+                float _profit = float.Parse(row["TotalAmount"].ToString());
+
+                Outcome[(int)_outCome - 1] = (int)_profit;
+                Profit[(int)_outCome - 1] -= (int)_profit;
+
+                //Outcome[Int32.Parse(row["Month"].ToString()) - 1] = Int32.Parse(row["TotalAmount"].ToString());
+                //Profit[Int32.Parse(row["Month"].ToString()) - 1] -= Int32.Parse(row["TotalAmount"].ToString());
             }
 
             BUS_Payment busPay = new BUS_Payment();

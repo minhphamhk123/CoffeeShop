@@ -40,8 +40,17 @@ namespace CoffeeShop.DAL
                 return new DateTime(2021, 1, 1);
             }
             
-        }    
+        }
 
+        /// <summary>
+        /// Method Lọc hóa đơn
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="keyword"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public DataTable GetReceipt(DateTime startDate, DateTime endDate, string keyword, int limit, int offset)
         {
             if (keyword == "")
@@ -51,7 +60,8 @@ namespace CoffeeShop.DAL
             DataTable receipts = new DataTable();
             try
             {
-                string sql = $"select R.ReceiptID, Time, R.EmployeeID, E.EmployeeName, D.DiscountID, DiscountValue, sum(Price * Amount) as Total from Receipt as R join Employees as E on R.EmployeeID = E.EmployeeID left join Discount as D on R.DiscountID = D.DiscountID join ReceiptDetail as RD on R.ReceiptID = RD.ReceiptID where ((R.ReceiptID like '%{keyword}%') and (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer))) group by R.ReceiptID limit {limit} offset {offset}";
+                //string sql = $"select R.ReceiptID, Time, R.EmployeeID, E.EmployeeName, D.DiscountID, DiscountValue, sum(Price * Amount) as Total from Receipt as R join Employees as E on R.EmployeeID = E.EmployeeID left join Discount as D on R.DiscountID = D.DiscountID join ReceiptDetail as RD on R.ReceiptID = RD.ReceiptID where ((R.ReceiptID like '%{keyword}%') and (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer))) group by R.ReceiptID limit {limit} offset {offset}";
+                string sql = $"select R.ReceiptID, R.Time, R.EmployeeID, E.EmployeeName, D.DiscountID, DiscountValue, sum(Price * Amount) as Total from Receipt as R join Employees as E on R.EmployeeID = E.EmployeeID left join Discount as D on R.DiscountID = D.DiscountID join ReceiptDetail as RD on R.ReceiptID = RD.ReceiptID where ((R.ReceiptID like '%{keyword}%')  and R.time >= '{start}' and R.time <= '{end}' ) group by R.ReceiptID, R.time, R.EmployeeID, E.EmployeeName, D.DiscountID, DiscountValue order by R.time DESC ";
                 receipts = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
@@ -86,8 +96,9 @@ namespace CoffeeShop.DAL
             DataTable receipts = new DataTable();
             try
             {
-                string sql = $"select count(ReceiptID) from Receipt where ((ReceiptID like '%{keyword}%') and (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)))";
-                receipts= DataProvider.Instance.ExecuteQuery(sql);
+                //string sql = $"select count(ReceiptID) from Receipt where ((ReceiptID like '%{keyword}%') and (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)))";
+                string sql = $"select count(ReceiptID) from Receipt R where ((ReceiptID like '%{keyword}%') and (R.time >= '{start}) and (R.time < '{end}'))";
+                receipts = DataProvider.Instance.ExecuteQuery(sql);
                 return Int32.Parse(receipts.Rows[0].ItemArray[0].ToString());
             }
             catch (Exception ex)
@@ -116,10 +127,11 @@ namespace CoffeeShop.DAL
 
         public DataTable GetTotalIncomeByYear(int year)
         {
-            DataTable data = new DataTable();
+            DataTable data = new DataTable(); 
             try
             {
-                string sql = $"select strftime('%m', Time) as Month, sum(Amount * Price * (1 - IFNULL(DiscountValue, 0)/100)) as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where strftime('%Y',Time) = '{year}' group by strftime('%m', Time)";
+                //string sql = $"select strftime('%m', Time) as Month, sum(Amount * Price * (1 - IFNULL(DiscountValue, 0)/100)) as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where strftime('%Y',Time) = '{year}' group by strftime('%m', Time)";
+                string sql = $"select month(time) as Month, sum(Amount * Price * (1 - isnull(DiscountValue, 0)/100)) as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where year(time) = '{year}' group by month(time)";
                 data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
@@ -131,7 +143,8 @@ namespace CoffeeShop.DAL
 
         public string CreateReceipt(DTO_Receipt newReceipt)
         {
-            DataTable receipts = GetReceipt(-1, 0);
+            //DataTable receipts = GetReceipt(-1, 0);
+            DataTable receipts = DataProvider.Instance.ExecuteQuery("Select * FROM Receipt");
             if (receipts.Rows.Count != 0)
             {
                 string lastID = receipts.Rows[receipts.Rows.Count - 1]["ReceiptID"].ToString();
@@ -144,9 +157,14 @@ namespace CoffeeShop.DAL
                 newReceipt.ReceiptID = "R000000001";
 
             //insert SQLite 
-            string sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID, DiscountID) VALUES ('{newReceipt.ReceiptID}', DateTime('now'), '{newReceipt.EmployeeID}', '{newReceipt.DiscountID}')";
+            //string sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID, DiscountID) VALUES ('{newReceipt.ReceiptID}', DateTime('now'), '{newReceipt.EmployeeID}', '{newReceipt.DiscountID}')";
+            string sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID, DiscountID) VALUES ('{newReceipt.ReceiptID}', '{DateTime.Now}', '{newReceipt.EmployeeID}', '{newReceipt.DiscountID}')";
             if (newReceipt.DiscountID == "")
-                sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID) VALUES ('{newReceipt.ReceiptID}', DateTime('now'), '{newReceipt.EmployeeID}')";
+            {
+                //sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID) VALUES ('{newReceipt.ReceiptID}', DateTime('now'), '{newReceipt.EmployeeID}')";
+                sql = $"INSERT INTO Receipt (ReceiptID, Time, EmployeeID) VALUES ('{newReceipt.ReceiptID}', '{DateTime.Now}', '{newReceipt.EmployeeID}')";
+            }
+
             try
             {
                 DataProvider.Instance.ExecuteNoneQuery(sql); return newReceipt.ReceiptID;

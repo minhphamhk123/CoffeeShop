@@ -232,9 +232,10 @@ namespace CoffeeShop.Menu
                     string id = row["BeverageID"].ToString();
                     string type = row["BeverageTypeName"].ToString();
                     int price = Int32.Parse(row["Price"].ToString());
+                    byte[] link = (byte[])row["Link"];
                     if (count >= (rowNumber - 1) * limitRow + 1 && count <= rowNumber * limitRow)
                     {
-                        list.Add(new DTO_Beverage() { BeverageID = id, BeverageName = name, BeverageTypeID = type, Price = price });
+                        list.Add(new DTO_Beverage() { BeverageID = id, BeverageName = name, BeverageTypeID = type, Price = price, Link = link });
                         count++;
                     }
                     else count++;
