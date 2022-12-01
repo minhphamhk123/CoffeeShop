@@ -68,13 +68,13 @@ namespace CoffeeShop.IncomeAndPayment
             tbNumPage.Text = "1";
             btnPagePre.IsEnabled = false;
 
-            start = new DateTime(1900, 1, 1, 0, 0, 0);
-            end = DateTime.Today;
+            start = DateTime.Today;
+            end = DateTime.Today.AddDays(1);
             keyword = "";
 
             tbFind.Text = "";
-            dpDateStart.SelectedDate = null;
-            dpDateEnd.SelectedDate = null;
+            dpDateStart.SelectedDate = DateTime.Today;
+            dpDateEnd.SelectedDate = DateTime.Today.AddDays(1);
 
             BUS_Receipt busReceipt = new BUS_Receipt();
             int empCount = busReceipt.CountReceipt(start, end, keyword);
@@ -115,7 +115,7 @@ namespace CoffeeShop.IncomeAndPayment
         {
             DateTime? datepicker = dpDateStart.SelectedDate;
             if (datepicker.ToString() == "")
-                start = new DateTime(1900, 1, 1, 0, 0, 0);
+                start = new DateTime(2010, 1, 1, 0, 0, 0);
             else
                 start = datepicker.Value;
 

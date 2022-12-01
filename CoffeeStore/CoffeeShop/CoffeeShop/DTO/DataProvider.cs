@@ -23,7 +23,6 @@ namespace CoffeeShop.DTO
 
         private DataProvider() { }
 
-        //private string connectionSTR = @"Data Source=.\sqlexpress;Initial Catalog=QuanLyKhachSan;Integrated Security=True";
         private string connectionSTR = DBConfig.GetConnectionString();
 
         /// <summary>

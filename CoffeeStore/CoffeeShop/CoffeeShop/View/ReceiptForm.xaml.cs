@@ -33,6 +33,8 @@ namespace CoffeeShop.View
             BUS_ReceiptDetail busReceiptDetail = new BUS_ReceiptDetail();
             DataTable receiptDetail = busReceiptDetail.GetDetailByID(id);
 
+            if (receiptDetail.Rows.Count < 1) return;
+
             tblockCreater.Text = receiptDetail.Rows[0]["EmployeeName"].ToString();
             tblockReceiptID.Text = id;
             tblockTime.Text = TimeZone.CurrentTimeZone.ToLocalTime((DateTime)receiptDetail.Rows[0]["Time"]).ToString();

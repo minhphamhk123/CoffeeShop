@@ -154,7 +154,7 @@ namespace CoffeeShop.IncomeAndPayment
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             DTO_Payment row = (DTO_Payment)dgPayment.SelectedItem;
-            DateTime importDate = DateTime.ParseExact(row.Time, "dd/MM/yyyy HH:mm:ss", null);
+            DateTime importDate = DateTime.ParseExact(row.Time, "dd/MM/yyyy HH:mm:ss tt", null);
 
             BUS_Parameter busParameter = new BUS_Parameter();
             int limitDay = busParameter.GetValue("DayDeletePayment");

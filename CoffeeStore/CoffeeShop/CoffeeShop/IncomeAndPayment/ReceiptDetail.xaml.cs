@@ -51,6 +51,8 @@ namespace CoffeeShop.IncomeAndPayment
             BUS_ReceiptDetail busReceiptDetail = new BUS_ReceiptDetail();
             DataTable detailData = busReceiptDetail.GetDetailByID(id);
 
+            if (detailData.Rows.Count < 1) return;
+
             tbDate.Text = TimeZone.CurrentTimeZone.ToLocalTime((DateTime)detailData.Rows[0]["Time"]).ToString("dd/MM/yyyy");
             tbEmployeeName.Text = detailData.Rows[0]["EmployeeName"].ToString();
             List<DetailItem> detailItems = new List<DetailItem>();

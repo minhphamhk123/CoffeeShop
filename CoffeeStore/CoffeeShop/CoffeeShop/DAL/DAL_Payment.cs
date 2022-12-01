@@ -172,7 +172,7 @@ namespace CoffeeShop.DAL
         public DataTable GetTotalAmountByYear(int year)
         {
             DataTable data = new DataTable();
-            string sql = $"select substr(Time, 4, 2) as Month, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/%/{year} %' group by Month";
+            string sql = $"select SUBSTRING(Time, 4, 2) as Month, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/%/{year} %' group by SUBSTRING(Time, 4, 2)"; 
             try
             {
                 data = DataProvider.Instance.ExecuteQuery(sql);
@@ -187,7 +187,7 @@ namespace CoffeeShop.DAL
         public DataTable GetTotalAmountByMonth(int month, int year)
         {
             DataTable data = new DataTable();
-            string sql = $"select substr(Time, 1, 2) as Day, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/{month.ToString().PadLeft(2, '0')}/{year} %' group by Day";
+            string sql = $"select SUBSTRING(Time, 1, 2) as Day, cast(sum(TotalAmount) as int) as Total from PaymentVoucher where Time like '%/{month.ToString().PadLeft(2, '0')}/{year} %' group by SUBSTRING(Time, 1, 2)";
             try
             {
                 data = DataProvider.Instance.ExecuteQuery(sql);

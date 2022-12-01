@@ -61,14 +61,15 @@ namespace CoffeeShop.DAL
         {
             int rs = 0;
             Console.WriteLine(beverage.BeverageID);
-            string sql = $"Update BeverageName set BeverageTypeID='" + beverage.BeverageTypeID + "', BeverageName='" + beverage.BeverageName + "', Price=" + beverage.Price + ",IsOutOfStock=" + beverage.IsOutOfStock + ",Unit='" + beverage.Unit + $"' , Link=@image Where BeverageID='" + beverage.BeverageID + "'";
+            string sql = $"Update BeverageName set BeverageTypeID='" + beverage.BeverageTypeID + "', BeverageName='" + beverage.BeverageName + "', Price=" + beverage.Price + ", IsOutOfStock=" + beverage.IsOutOfStock + ", Unit='" + beverage.Unit + $"' , Link= @image Where BeverageID='" + beverage.BeverageID + "'";
             try
             {
                 //SQLiteCommand command = new SQLiteCommand(sql, getConnection());
                 //command.Parameters.Add("@image", DbType.Binary, 20).Value = beverage.Link;
                 //command.Connection.Open();
                 //rs = command.ExecuteNoneQuery();
-                DataProvider.Instance.ExecuteQuery(sql);
+                //object[] parameterts = new object[]; //["@image"];
+                rs = DataProvider.Instance.ExecuteNoneQuery(sql, new object[] { beverage.Link });
             }
             catch (Exception ex)
             {
@@ -226,7 +227,8 @@ namespace CoffeeShop.DAL
             DataTable BeverData = new DataTable();
             try
             {
-                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount) as SellAmount from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by sum(Amount) asc";
+                //string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount) as SellAmount from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by sum(Amount) asc";
+                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount) as SellAmount from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID where Time >= '{start}' and Time < '{end}' group by BeverageName.BeverageID, BeverageName order by sum(Amount) asc";
                 BeverData = DataProvider.Instance.ExecuteQuery(sql);
                 return BeverData;
             }
@@ -245,7 +247,7 @@ namespace CoffeeShop.DAL
             DataTable BeverData = new DataTable();
             try
             {
-                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount * ReceiptDetail.Price * (1 - IFNULL(DiscountValue, 0)/100)) as SellIncome from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by SellIncome asc";
+                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount * ReceiptDetail.Price * (1 - ISNULL(DiscountValue, 0)/100)) as SellIncome from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by SellIncome asc";
                 BeverData = DataProvider.Instance.ExecuteQuery(sql);
                 return BeverData;
             }

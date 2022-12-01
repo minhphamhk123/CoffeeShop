@@ -30,7 +30,8 @@ namespace CoffeeShop.DAL
             DataTable receiptDetails = new DataTable();
             try
             {
-                string sql = $"SELECT Time, EmployeeName, BeverageName, Amount, DiscountID, ReceiptDetail.Price as UnitPrice, sum(Amount * ReceiptDetail.Price) as Total from Receipt join ReceiptDetail on Receipt.ReceiptID = ReceiptDetail.ReceiptID join Employees on Receipt.EmployeeID = Employees.EmployeeID join BeverageName on ReceiptDetail.BeverageID = BeverageName.BeverageID where Receipt.ReceiptID = '{id}' group by BeverageName";
+                //string sql = $"SELECT Time, EmployeeName, BeverageName, Amount, DiscountID, ReceiptDetail.Price as UnitPrice, sum(Amount * ReceiptDetail.Price) as Total from Receipt join ReceiptDetail on Receipt.ReceiptID = ReceiptDetail.ReceiptID join Employees on Receipt.EmployeeID = Employees.EmployeeID join BeverageName on ReceiptDetail.BeverageID = BeverageName.BeverageID where Receipt.ReceiptID = '{id}' group by BeverageName";
+                string sql = $"SELECT Time, EmployeeName, BeverageName, Amount, DiscountID, ReceiptDetail.Price as UnitPrice, sum(Amount * ReceiptDetail.Price) as Total from Receipt join ReceiptDetail on Receipt.ReceiptID = ReceiptDetail.ReceiptID join Employees on Receipt.EmployeeID = Employees.EmployeeID join BeverageName on ReceiptDetail.BeverageID = BeverageName.BeverageID where Receipt.ReceiptID = '{id}' group by Time, EmployeeName, BeverageName, Amount, DiscountID, ReceiptDetail.Price";
                 receiptDetails = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
