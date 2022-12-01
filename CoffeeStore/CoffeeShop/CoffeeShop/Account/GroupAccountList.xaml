@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:CoffeeShop.Inventory"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             MinWidth="650" MaxHeight="600">
+             MinWidth="650" MaxHeight="600" Height="600">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -28,12 +28,10 @@
                 <ColumnDefinition Width="30"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Label Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Foreground="#FFE297" FontSize="30" FontWeight="Bold">
-                Nhóm tài khoản
-            </Label>
+                   Foreground="#FFE297" FontSize="30" FontWeight="Bold" Content="Danh sách nhóm tài khoản"/>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFE297"></Grid>
         </Grid>
         
@@ -62,14 +60,6 @@
                 </Grid.RowDefinitions>
                 
                 <!--List header here-->
-                <Grid Grid.Row="0" Background="#6B6158">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Foreground="#FFE297" FontWeight="Bold" Content="Danh sách nhóm tài khoản">
-                    </Label>
-                </Grid>
                 <!--List body here-->
                 <Border Grid.Row="1" BorderBrush="#6B6158" BorderThickness="2">
                     <Grid>

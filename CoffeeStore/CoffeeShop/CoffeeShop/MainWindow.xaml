@@ -12,7 +12,7 @@
         Top="0"
         Icon="Images/icon.png" VerticalAlignment="Top"
         Closing="Window_Closing"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" d:DesignWidth="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="btv" />
 
@@ -72,7 +72,32 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!--Username here-->
-        <Menu Background="White" IsMainMenu="True" Grid.Row="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
+        <!--Logo here-->
+        <!--Logo here-->
+        <Grid Grid.RowSpan="2" Grid.Column="0" Background="#6B6158">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Coffee" Background="#6B6158" Foreground="#FFE297" VerticalAlignment="Center" HorizontalAlignment="Center" Width="40" Height="40"/>
+                <TextBlock FontWeight="SemiBold" Foreground="#FFE297" FontSize="20" ><Run Text="Ngao Coffee"/></TextBlock>
+            </StackPanel>
+        </Grid>
+        <!--Navigation menu here-->
+        <Grid HorizontalAlignment="Stretch" Grid.Row="2"  Background="#6B6158">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="326*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2"/>
+            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="1" Grid.ColumnSpan="2">
+                <StackPanel x:Name="Menu" Margin="10,0,0,0"/>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel x:Name="StackPanelMain" Grid.RowSpan="3" Grid.Column="1">
+            <view:Banner x:Name="banner"/>
+        </StackPanel>
+        <Menu Background="{x:Null}" IsMainMenu="True" Grid.Row="0" Grid.ColumnSpan="2" FlowDirection="RightToLeft" Foreground="{x:Null}">
             <MenuItem Background="#EAEAEA" Foreground="#011F3B" Height="40"
                       Width="180" FlowDirection="LeftToRight" Margin="30,0,0,0"
                       Template="{StaticResource VsMenuTop}" >
@@ -90,33 +115,8 @@
                           Header="Đăng xuất" Click="LogOutBtn_Click"/>
             </MenuItem>
         </Menu>
-        <!--Logo here-->
-        <Grid Grid.RowSpan="2" Grid.Column="0" Background="#6B6158">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:PackIcon Kind="Coffee" Background="#6B6158" Foreground="#FFE297" VerticalAlignment="Center" HorizontalAlignment="Center" Width="40" Height="40"/>
-                <TextBlock FontWeight="SemiBold" Foreground="#FFE297" FontSize="20" >Ngao Coffee</TextBlock>
-            </StackPanel>
-        </Grid>
-        <!--Navigation menu here-->
-        <Grid HorizontalAlignment="Stretch" Grid.Row="2"  Background="#6B6158">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="326*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.ColumnSpan="2"/>
-            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Grid.Row="1" Grid.ColumnSpan="2">
-                <StackPanel x:Name="Menu" Margin="10,0,0,0"/>
-            </ScrollViewer>
-        </Grid>
-        <StackPanel x:Name="StackPanelMain" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <view:Banner x:Name="banner"></view:Banner>
-        </StackPanel>
-        <Grid x:Name="gridLogin" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2">
-            <view:Login x:Name="loginScreen">
-            </view:Login>
+        <Grid x:Name="gridLogin" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" d:IsHidden="True">
+            <view:Login x:Name="loginScreen"/>
         </Grid>
     </Grid>
 </Window>

@@ -152,6 +152,7 @@ namespace CoffeeShop
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
+                screen.Height = StackPanelMain.ActualHeight;
             }
         }
         internal void SwitchWindow(object sender)
@@ -162,6 +163,7 @@ namespace CoffeeShop
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
+                screen.Height = StackPanelMain.ActualHeight;
             }
         }
         internal void SwitchWindow(object sender, int type)
@@ -188,6 +190,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToReceipt()
@@ -196,6 +199,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToMenu()
@@ -204,6 +208,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void LogOut()
