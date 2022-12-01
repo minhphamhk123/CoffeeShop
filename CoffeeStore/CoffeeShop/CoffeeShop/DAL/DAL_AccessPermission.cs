@@ -23,7 +23,8 @@ namespace CoffeeShop.DAL
                 perListData = DataProvider.Instance.ExecuteQuery(sql);
 
                 // create rows of datatable for show
-                sql = $"select * from EmployeeType limit {limit} offset {offset}";
+                //sql = $"select * from EmployeeType limit {limit} offset {offset}";
+                sql = $"select top {limit} * from EmployeeType";
                 accessInfo = DataProvider.Instance.ExecuteQuery(sql);
 
                 for (int i = 0; i < perListData.Rows.Count; i++)
@@ -83,7 +84,7 @@ namespace CoffeeShop.DAL
             DataTable empTypeName = new DataTable();
             try
             {
-                string sql = $"select AccessPermissionID from AccessPermission where AccessPermissionName = '{name}'";
+                string sql = $"select AccessPermissionID from AccessPermission where AccessPermissionName = N'{name}'";
                 empTypeName = DataProvider.Instance.ExecuteQuery(sql);
                 id = empTypeName.Rows[0].ItemArray[0].ToString();
             }

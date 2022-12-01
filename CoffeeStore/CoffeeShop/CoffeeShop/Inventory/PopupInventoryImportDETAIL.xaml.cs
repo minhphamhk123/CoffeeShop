@@ -66,7 +66,7 @@ namespace CoffeeShop.Inventory
                 string amount = row["Số lượng"].ToString();
                 string unitprice = row["Đơn giá"].ToString();
                 string unit = row["Đơn vị tính"].ToString();
-                int tongtien = int.Parse(amount) * int.Parse(unitprice);
+                float tongtien = int.Parse(amount) * float.Parse(unitprice);
                 list.Add(new InventoryImportDetailObject() { amount = amount, name = name, unit = unit, totalCost = tongtien.ToString(), unitPrice = unitprice });
             }
             this.dataGridMaterialImport.ItemsSource = list;

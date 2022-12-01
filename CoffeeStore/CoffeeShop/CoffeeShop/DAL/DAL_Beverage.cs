@@ -117,7 +117,7 @@ namespace CoffeeShop.DAL
         public string getBeverageTypeID(string beveragename)
         {
             string beveragetypeID = "";
-            string sql = $"Select BeverageTypeID from BeverageType where BeverageTypeName='" + beveragename + "'";
+            string sql = $"Select BeverageTypeID from BeverageType where BeverageTypeName=N'" + beveragename + "'";
             try
             {
                 DataTable dt = DataProvider.Instance.ExecuteQuery(sql);
@@ -134,7 +134,7 @@ namespace CoffeeShop.DAL
         {
             try
             {
-                string sql = $"Select A.BeverageID as 'Mã món', BeverageName as 'Tên món', Price as 'Giá', SoLuong as 'Tổng số ly đã bán' From BeverageName BN, (select BeverageID, sum(Amount) as SoLuong from ReceiptDetail group by BeverageID order by SoLuong DESC limit 5) A Where BN.BeverageID=A.BeverageID";
+                string sql = $"Select A.BeverageID as 'Mã món', BeverageName as 'Tên món', Price as 'Giá', SoLuong as 'Tổng số ly đã bán' From BeverageName BN, (select top 5 BeverageID, sum(Amount) as SoLuong from ReceiptDetail group by BeverageID order by SoLuong DESC) A Where BN.BeverageID=A.BeverageID";
                 
                 DataTable dsMon = DataProvider.Instance.ExecuteQuery(sql);
                 return dsMon;

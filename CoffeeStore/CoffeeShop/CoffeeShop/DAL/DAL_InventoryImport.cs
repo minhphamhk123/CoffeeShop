@@ -52,7 +52,7 @@ namespace CoffeeShop.DAL
             //create auto increase ID
             //Get max MaterialID
             String id = "Imp0000000";
-            string tempSQL = "SELECT importID FROM InventoryImport order by importID desc LIMIT 1 ";
+            string tempSQL = "SELECT top 1 importID FROM InventoryImport order by importID desc";
             DataTable maxId = DataProvider.Instance.ExecuteQuery(tempSQL);
             foreach (DataRow row in maxId.Rows)
             {
@@ -65,14 +65,14 @@ namespace CoffeeShop.DAL
                     .PadLeft(7, '0');
             //get employid from name 
             String employId = "";
-            string tempSQL1 = $"select employeeid from Employees where employeename= '{name}' ";
+            string tempSQL1 = $"select employeeid from Employees where employeename= N'{name}' ";
             DataTable employid = DataProvider.Instance.ExecuteQuery(tempSQL1);
             foreach (DataRow row in employid.Rows)
             {
                 employId = row["EmployeeID"].ToString();
             }
-            //insert SQLite 
-            string sql = $"insert into InventoryImport('ImportID','EmployeeID','ImportDate') VALUES ('{newID}','{employId}','{date}');";
+            //insert SQLServer
+            string sql = $"insert into InventoryImport(ImportID, EmployeeID, ImportDate) VALUES ('{newID}','{employId}','{date}');";
             
             try
             {
@@ -161,7 +161,7 @@ namespace CoffeeShop.DAL
         public DataTable GetTotalAmountByMonth(int month, int year)
         {
             DataTable data = new DataTable();
-            string sql = $"select substr(ImportDate, 1, 2) as Day, sum(Amount * Price) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/{month.ToString().PadLeft(2, '0')}/{year}' group by Day";
+            string sql = $"select SUBSTRING(ImportDate, 1, 2) as Day, sum(Amount * Price) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/{month.ToString().PadLeft(2, '0')}/{year}' group by SUBSTRING(ImportDate, 1, 2)";
             try
             {
                 data = DataProvider.Instance.ExecuteQuery(sql);
