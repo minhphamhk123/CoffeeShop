@@ -13,7 +13,7 @@ namespace CoffeeShop.DAL
         public bool CreateAccessPermissionGroup(DTO_AccessPermissionGroup newAccPerGr)
         {
             //insert SQLite 
-            string sql = $"insert into AccessPermissionGroup('EmployeeTypeID','AccessPermissionID') VALUES ('{newAccPerGr.EmployeeTypeID}','{newAccPerGr.AccessPermissionID}')";
+            string sql = $"insert into AccessPermissionGroup(EmployeeTypeID,AccessPermissionID) VALUES ('{newAccPerGr.EmployeeTypeID}','{newAccPerGr.AccessPermissionID}')";
             
             try
             {

@@ -63,7 +63,7 @@ namespace CoffeeShop.DAL
             DataTable empTypeName = new DataTable();
             try
             {
-                string sql = $"select EmployeeTypeID from EmployeeType where EmployeeTypeName = '{name}'";
+                string sql = $"select EmployeeTypeID from EmployeeType where EmployeeTypeName = N'{name}'";
                 empTypeName = DataProvider.Instance.ExecuteQuery(sql);
                 id = empTypeName.Rows[0].ItemArray[0].ToString();
             }
@@ -84,7 +84,7 @@ namespace CoffeeShop.DAL
                     .PadLeft(3, '0');
 
             //insert SQLite
-            string sql = $"insert into EmployeeType('EmployeeTypeID','EmployeeTypeName') VALUES ('{newEmpType.EmployeeTypeID}','{newEmpType.EmployeeTypeName}')";
+            string sql = $"insert into EmployeeType(EmployeeTypeID,EmployeeTypeName) VALUES ('{newEmpType.EmployeeTypeID}',N'{newEmpType.EmployeeTypeName}')";
             
             try
             {
@@ -140,7 +140,7 @@ namespace CoffeeShop.DAL
 
         public bool EditEmployeeType(DTO_EmployeeType editEmpType)
         {
-            string sql = $"update EmployeeType set EmployeeTypeName = '{editEmpType.EmployeeTypeName}' where EmployeeTypeID = '{editEmpType.EmployeeTypeID}'";
+            string sql = $"update EmployeeType set EmployeeTypeName = N'{editEmpType.EmployeeTypeName}' where EmployeeTypeID = '{editEmpType.EmployeeTypeID}'";
             
             try
             {

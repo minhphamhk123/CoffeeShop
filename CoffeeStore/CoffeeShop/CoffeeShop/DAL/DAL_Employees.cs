@@ -113,7 +113,9 @@ namespace CoffeeShop.DAL
             DataTable employees = new DataTable();
             try
             {
-                string sql = $"select EmployeeID, EmployeeName, EmployeeType.EmployeeTypeName, Password, State from Employees join EmployeeType on Employees.EmployeeTypeID = EmployeeType.EmployeeTypeID LIMIT {limit} OFFSET {offset}";
+                //string sql = $"select EmployeeID, EmployeeName, EmployeeType.EmployeeTypeName, Password, State from Employees join EmployeeType on Employees.EmployeeTypeID = EmployeeType.EmployeeTypeID LIMIT {limit} OFFSET {offset}";
+                string sql = $"select top {limit} EmployeeID, EmployeeName, EmployeeType.EmployeeTypeName, Password, State from Employees join EmployeeType on Employees.EmployeeTypeID = EmployeeType.EmployeeTypeID";
+
                 employees = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
@@ -126,7 +128,7 @@ namespace CoffeeShop.DAL
         public bool CreateEmployee(DTO_Employees newEmp)
         {
             //insert SQLite 
-            string sql = $"insert into Employees('EmployeeID','EmployeeName','EmployeeTypeID','Password', 'State') VALUES ('{newEmp.EmployeeID}','{newEmp.EmployeeName}','{newEmp.EmployeeTypeID}','{newEmp.Password}', '1')";
+            string sql = $"insert into Employees(EmployeeID,EmployeeName,EmployeeTypeID,Password, State) VALUES ('{newEmp.EmployeeID}',N'{newEmp.EmployeeName}','{newEmp.EmployeeTypeID}','{newEmp.Password}', '1')";
             
             try
             {
@@ -142,7 +144,7 @@ namespace CoffeeShop.DAL
 
         public bool EditEmployee(DTO_Employees editedEmp)
         {
-            string sql = $"update Employees set EmployeeName = '{editedEmp.EmployeeName}', EmployeeTypeID = '{editedEmp.EmployeeTypeID}', Password = '{editedEmp.Password}' where EmployeeID = '{editedEmp.EmployeeID}'";
+            string sql = $"update Employees set EmployeeName = N'{editedEmp.EmployeeName}', EmployeeTypeID = '{editedEmp.EmployeeTypeID}', Password = '{editedEmp.Password}' where EmployeeID = '{editedEmp.EmployeeID}'";
             
             try
             {

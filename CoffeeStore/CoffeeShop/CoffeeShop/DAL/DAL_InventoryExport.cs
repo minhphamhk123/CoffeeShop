@@ -56,7 +56,7 @@ namespace CoffeeShop.DAL
             //create auto increase ID
             //Get max MaterialID
             String id = "Exp0000000";
-            string tempSQL = "SELECT exportID FROM InventoryExport order by exportID desc LIMIT 1 ";
+            string tempSQL = "SELECT top 1 exportID FROM InventoryExport order by exportID desc";
             DataTable maxId = DataProvider.Instance.ExecuteQuery(tempSQL);
             foreach (DataRow row in maxId.Rows)
             {
@@ -69,14 +69,14 @@ namespace CoffeeShop.DAL
                     .PadLeft(7, '0');
             //get employid from name 
             String employId = "";
-            string tempSQL1 = $"select employeeid from Employees where employeename= '{name}' ";
+            string tempSQL1 = $"select employeeid from Employees where employeename= N'{name}' ";
             DataTable employid = DataProvider.Instance.ExecuteQuery(tempSQL1);
             foreach (DataRow row in employid.Rows)
             {
                 employId = row["EmployeeID"].ToString();
             }
-            //insert SQLite 
-            string sql = $"insert into InventoryExport('ExportID','EmployeeID','ExportDate','Description') VALUES ('{newID}','{employId}','{date}', '{description}');";
+            //insert SQLServer
+            string sql = $"insert into InventoryExport(ExportID, EmployeeID, ExportDate, Description) VALUES ('{newID}','{employId}','{date}', N'{description}');";
             try
             {
                 DataProvider.Instance.ExecuteNoneQuery(sql); return newID;

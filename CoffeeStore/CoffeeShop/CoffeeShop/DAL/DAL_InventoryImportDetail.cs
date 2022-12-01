@@ -56,10 +56,10 @@ namespace CoffeeShop.DAL
         {
             try
             {
-                string sql = $" select isUse ,materialname as 'Tên',unit as 'Đơn vị tính', sum(amount) as 'Số lượng' " +
+                string sql = $" select isUse ,materialname as 'Tên',unit as 'Đơn vị tính', sum(CAST(amount AS int)) as 'Số lượng' " +
                             $"from InventoryImportDetail detail Join Material mater " +
                             $"on detail.MaterialID= mater.MaterialID " +
-                            $"group by materialname";
+                            $"group by isUse ,materialname, unit";
                 return DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception e)
@@ -76,7 +76,7 @@ namespace CoffeeShop.DAL
                 string sql = $" select materialname as 'Tên',unit as 'Đơn vị tính', sum(amount) as 'Số lượng' " +
                             $"from InventoryImportDetail detail Join Material mater " +
                             $"on detail.MaterialID= mater.MaterialID where materialName like '%{key}%' or unit like '%{key}%' " +
-                            $"group by materialname ";
+                            $"group by materialname, unit ";
                 return DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception e)

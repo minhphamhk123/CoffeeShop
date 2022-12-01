@@ -19,9 +19,9 @@ namespace CoffeeShop.DAL
                 String selectedName = $"(";
                 for (int i = 0; i < name.Count - 1; i++)
                 {
-                    selectedName += $"'{name[i]}',";
+                    selectedName += $"N'{name[i]}',";
                 }
-                selectedName += $"'{name[name.Count - 1]}')";
+                selectedName += $"N'{name[name.Count - 1]}')";
                 string sql = $"SELECT * FROM Material where materialname IN {selectedName}";
                 DataTable listMaterial = DataProvider.Instance.ExecuteQuery(sql);
                 Console.WriteLine($"SELECT BY NAME ROW {listMaterial.Rows.Count}");
@@ -48,7 +48,7 @@ namespace CoffeeShop.DAL
         }
         public void UpdateUsing(string name, string unit)
         {
-            string sql = $"UPDATE Material SET isuse = '1', unit='{unit}' WHERE materialName= '{name}'";
+            string sql = $"UPDATE Material SET isuse = '1', unit='{unit}' WHERE materialName= N'{name}'";
             try
             {
                 DataProvider.Instance.ExecuteNoneQuery(sql);
@@ -61,7 +61,7 @@ namespace CoffeeShop.DAL
         public bool Create(String name, String unit)
         {
             //checking if material is already exist
-            string checkMaterial = $"SELECT * FROM Material where MaterialName= '{name}' ";
+            string checkMaterial = $"SELECT * FROM Material where MaterialName= N'{name}' ";
             DataTable checkMater = DataProvider.Instance.ExecuteQuery(checkMaterial);
             if (checkMater.Rows.Count!=0)
             {
@@ -78,7 +78,7 @@ namespace CoffeeShop.DAL
             //create auto increase ID
             //Get max MaterialID
             String id = "Mater00000";
-            string tempSQL = "SELECT materialId FROM Material order by materialId desc LIMIT 1 ";
+            string tempSQL = "SELECT top 1 materialId FROM Material order by materialId desc ";
             DataTable maxId = DataProvider.Instance.ExecuteQuery(tempSQL);
             foreach (DataRow row in maxId.Rows)
             {
