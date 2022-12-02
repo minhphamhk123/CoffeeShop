@@ -65,6 +65,10 @@ namespace CoffeeShop.Report
             Formatter = value => value.ToString("N");
             saleChart.Height = (Labels.Count + 20) * 20;
             saleChart.Series = SaleChart;
+
+            _axisY_Sale.Labels = Labels;
+            _axisX_Sale.LabelFormatter = Formatter;
+
             saleChart.Update();
             
         }
@@ -95,6 +99,10 @@ namespace CoffeeShop.Report
             FormatterProfitChart = value => value.ToString("N", CultureInfo.CreateSpecificCulture("en-US"));
             profitChart.Height = (LabelsProfitChart.Count + 20) * 20; //Number of labels * 100
             profitChart.Series = ProfitChart;
+
+            _axisY_Profit.Labels = LabelsProfitChart;
+            _axisX_Profit.LabelFormatter = FormatterProfitChart;
+
             profitChart.Update();
         }
 
@@ -102,8 +110,8 @@ namespace CoffeeShop.Report
         public SeriesCollection ProfitChart { get; set; }
         public List<string> Labels { get; set; }
         public List<string> LabelsProfitChart { get; set; }
-        public Func<int, string> Formatter { get; set; }
-        public Func<int, string> FormatterProfitChart { get; set; }
+        public Func<double, string> Formatter { get; set; }
+        public Func<double, string> FormatterProfitChart { get; set; }
 
         private void btnShow_Click(object sender, RoutedEventArgs e)
         {

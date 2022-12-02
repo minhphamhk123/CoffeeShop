@@ -1,4 +1,5 @@
-﻿using CoffeeShop.BUS;
+﻿using CoffeeShop.Account;
+using CoffeeShop.BUS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,10 @@ namespace CoffeeShop.View
         public Login()
         {
             InitializeComponent();
-            txtBoxPassword.Password = "12345";
+            //txtBoxPassword.Password = "12345";
+
+            txtBoxAccount.Text = "vinh2002";
+            txtBoxPassword.Password = "2002";
         }
 
         public bool CheckPassword()
@@ -58,6 +62,8 @@ namespace CoffeeShop.View
                 tbPassValidation.Text = "Mật khẩu không đúng.";
                 return false;
             }
+
+            User.ID = id;
             return true;
         }    
     }

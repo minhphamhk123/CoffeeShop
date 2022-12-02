@@ -16,6 +16,16 @@ namespace CoffeeShop.BUS
             return dalAccPer.GetAccessInfo(limit, offset);
         }
 
+        public DataTable GetAccessInfoByEmployeeTypeName(string employeeTypeName)
+        {
+            return dalAccPer.GetAccessInfoByEmployeeTypeName(employeeTypeName);
+        }
+
+        public DataTable GetAccessInfoByEmployeeTypeID(string employeeTypeID)
+        {
+            return dalAccPer.GetAccessInfoByEmployeeTypeID(employeeTypeID);
+        }
+
         public DataTable GetAccessPermission()
         {
             return dalAccPer.GetAccessPermissions();

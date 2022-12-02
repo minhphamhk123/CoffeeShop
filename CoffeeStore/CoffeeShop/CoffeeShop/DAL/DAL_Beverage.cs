@@ -247,7 +247,9 @@ namespace CoffeeShop.DAL
             DataTable BeverData = new DataTable();
             try
             {
-                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount * ReceiptDetail.Price * (1 - ISNULL(DiscountValue, 0)/100)) as SellIncome from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by SellIncome asc";
+                //string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount * ReceiptDetail.Price * (1 - ISNULL(DiscountValue, 0)/100)) as SellIncome from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (CAST(strftime('%s', Time) AS integer) >= CAST(strftime('%s', '{start}') AS integer)) and (CAST(strftime('%s', Time) AS integer) < CAST(strftime('%s', '{end}') AS integer)) group by BeverageName.BeverageID order by SellIncome asc";
+                string sql = $"select BeverageName.BeverageID, BeverageName, sum(Amount * ReceiptDetail.Price * (1 - ISNULL(DiscountValue, 0)/100)) as SellIncome from BeverageName join ReceiptDetail on ReceiptDetail.BeverageID = BeverageName.BeverageID join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where Time >= '{start}' and Time < '{end}' group by BeverageName.BeverageID, BeverageName order by SellIncome asc";
+
                 BeverData = DataProvider.Instance.ExecuteQuery(sql);
                 return BeverData;
             }
