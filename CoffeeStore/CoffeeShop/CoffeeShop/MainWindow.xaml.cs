@@ -28,8 +28,8 @@ namespace CoffeeShop
     {
         string currentEmpType;
         string currentEmpID;
-        static string oldPassword;
-        static string oldUsername;
+        static string oldPassword = "";
+        static string oldUsername = "";
         public MainWindow()
         {
 
@@ -98,6 +98,9 @@ namespace CoffeeShop
                 this.Hide();
                 window.ShowDialog();
             }
+            loginScreen.txtBoxAccount.Text = oldUsername;
+            loginScreen.txtBoxPassword.Password = oldPassword;
+
         }
 
         private void LoginScreen_BtnLogin_Click(object sender, RoutedEventArgs e)
@@ -105,16 +108,15 @@ namespace CoffeeShop
             bool checkResult = loginScreen.CheckPassword();
             if (checkResult)
             {
-                tblockUsername.Text = loginScreen.txtBoxAccount.Text;
                 BUS_Employees busEmp = new BUS_Employees();
-                currentEmpID = tblockUsername.Text;
-                currentEmpType = busEmp.GetEmpTypeByID(tblockUsername.Text);
-                oldUsername = tblockUsername.Text;
+                //tblockUsername.Text = loginScreen.txtBoxAccount.Text;
+                tblockUsername.Text = busEmp.GetEmpNameByID(loginScreen.txtBoxAccount.Text);
+                currentEmpID = loginScreen.txtBoxAccount.Text;
+                currentEmpType = busEmp.GetEmpTypeByID(loginScreen.txtBoxAccount.Text);
+                oldUsername = loginScreen.txtBoxAccount.Text;
                 oldPassword = loginScreen.txtBoxPassword.Password;
 
                 MessageBox.Show(currentEmpType);
-                MessageBox.Show(oldUsername);
-                MessageBox.Show(oldPassword);
                 if (currentEmpType == "AP001")
                 {
 
@@ -139,7 +141,7 @@ namespace CoffeeShop
                 }    
             }
             }
-        private void LoginScreen_BtnSale_Click(object sender, RoutedEventArgs e)
+        /*private void LoginScreen_BtnSale_Click(object sender, RoutedEventArgs e)
         {
             bool checkResult = loginScreen.CheckPassword();
             if (checkResult)
@@ -178,7 +180,7 @@ namespace CoffeeShop
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(banner);
             }
-        }
+        }*/
 
         private void ChangePasswordBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -198,8 +200,8 @@ namespace CoffeeShop
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
+                screen.MinHeight = StackPanelMain.ActualHeight - 100;
                 StackPanelMain.Children.Add(screen);
-                screen.Height = StackPanelMain.ActualHeight;
             }
         }
         internal void SwitchWindow(object sender)
@@ -209,8 +211,8 @@ namespace CoffeeShop
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
-                StackPanelMain.Children.Add(screen);
-                screen.Height = StackPanelMain.ActualHeight;
+                screen.MinHeight = StackPanelMain.ActualHeight - 100;
+                StackPanelMain.Children.Add(screen);     
             }
         }
         internal void SwitchWindow(object sender, int type)
@@ -220,6 +222,7 @@ namespace CoffeeShop
             if (screen != null)
             {
                 gridLogin.Children.Clear();
+                //screen.MinHeight = StackPanelMain.ActualHeight - 20;
                 gridLogin.Children.Add(screen);
             }
         }
@@ -236,8 +239,8 @@ namespace CoffeeShop
             var screen = new Discount.DiscountList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
+            screen.MinHeight = StackPanelMain.ActualHeight - 100;
             StackPanelMain.Children.Add(screen);
-            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToReceipt()
@@ -245,8 +248,8 @@ namespace CoffeeShop
             var screen = new IncomeAndPayment.ReceiptList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
+            screen.MinHeight = StackPanelMain.ActualHeight - 100;
             StackPanelMain.Children.Add(screen);
-            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToMenu()
@@ -254,8 +257,8 @@ namespace CoffeeShop
             var screen = new Menu.MenuList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
+            screen.MinHeight = StackPanelMain.ActualHeight - 100;
             StackPanelMain.Children.Add(screen);
-            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void LogOut()

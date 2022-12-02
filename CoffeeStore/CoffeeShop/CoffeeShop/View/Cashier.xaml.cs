@@ -102,7 +102,7 @@ namespace CoffeeShop.View
             PrintScreen.Children.Clear();
             _context = mainWindow;
             user = userID;
-            tblockUsername.Text = user;
+            tblockUsername.Text = new BUS_Employees().GetEmpNameByID(userID);
             Loaded += Cashier_Loaded;
         }
 
@@ -114,12 +114,12 @@ namespace CoffeeShop.View
         public void SetCurrrentUser(string userID)
         {
             user = userID;
-            tblockUsername.Text = user;
+            tblockUsername.Text = new BUS_Employees().GetEmpNameByID(userID); ;
         }
 
         public void LoadData()
         {
-            tblockUsername.Text = user;
+            tblockUsername.Text = new BUS_Employees().GetEmpNameByID(user);;
             newReceiptID = "";
             menuItems = new List<MenuBeverage>();
             menuItemsDisplay = new List<MenuBeverage>();
