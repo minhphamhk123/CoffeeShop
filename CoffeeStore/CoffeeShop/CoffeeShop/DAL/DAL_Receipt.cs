@@ -115,7 +115,8 @@ namespace CoffeeShop.DAL
             DataTable data = new DataTable();
             try
             {
-                string sql = $"select strftime('%d', Time) as Day, sum(Amount * Price * (1 - IFNULL(DiscountValue, 0)/100))  as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (strftime('%m', Time) = '{strMonth}' and strftime('%Y',Time) = '{year}') group by Discount.DiscountID, strftime('%d', Time)";
+                //string sql = $"select strftime('%d', Time) as Day, sum(Amount * Price * (1 - ISNULL(DiscountValue, 0)/100))  as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where (strftime('%m', Time) = '{strMonth}' and strftime('%Y',Time) = '{year}') group by Discount.DiscountID, strftime('%d', Time)";
+                string sql = $"select DAY(Time) as Day, sum(Amount * Price * (1 - ISNULL(DiscountValue, 0)/100))  as TotalAfterDis from ReceiptDetail join Receipt on ReceiptDetail.ReceiptID = Receipt.ReceiptID left join Discount on Receipt.DiscountID = Discount.DiscountID where MONTH(Time) = '{month}' and YEAR(Time) = '{year}' group by Discount.DiscountID, DAY(Time)";
                 data = DataProvider.Instance.ExecuteQuery(sql);
             }
             catch (Exception ex)
