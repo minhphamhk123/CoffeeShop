@@ -30,6 +30,7 @@ namespace CoffeeShop
         string currentEmpID;
         static string oldPassword = "";
         static string oldUsername = "";
+        static int check = 0;
         public MainWindow()
         {
 
@@ -200,7 +201,14 @@ namespace CoffeeShop
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
-                screen.MinHeight = StackPanelMain.ActualHeight - 100;
+                if (check == 0)
+                {
+                    screen.MinHeight = StackPanelMain.ActualHeight - 300;
+                    check = 1;
+                }
+                else
+                    screen.MinHeight = StackPanelMain.ActualHeight;
+                MessageBox.Show("SwitchScreen - 300 " + StackPanelMain.ActualHeight);
                 StackPanelMain.Children.Add(screen);
             }
         }
@@ -211,7 +219,17 @@ namespace CoffeeShop
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
-                screen.MinHeight = StackPanelMain.ActualHeight - 100;
+                if (check == 0)
+                {
+                    screen.MinHeight = StackPanelMain.ActualHeight - 300;
+                    check = 1;
+                }
+                else
+                    screen.MinHeight = StackPanelMain.ActualHeight;
+
+                screen.MinHeight = StackPanelMain.ActualHeight;
+
+                MessageBox.Show("SwitchWindow - 300 " + StackPanelMain.ActualHeight);
                 StackPanelMain.Children.Add(screen);     
             }
         }
@@ -239,7 +257,15 @@ namespace CoffeeShop
             var screen = new Discount.DiscountList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
-            screen.MinHeight = StackPanelMain.ActualHeight - 100;
+            if (check == 0)
+            {
+                screen.MinHeight = StackPanelMain.ActualHeight - 300;
+                check = 1;
+            }
+            else
+                screen.MinHeight = StackPanelMain.ActualHeight;
+
+            MessageBox.Show("SwitchToDiscount - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 
@@ -248,7 +274,14 @@ namespace CoffeeShop
             var screen = new IncomeAndPayment.ReceiptList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
-            screen.MinHeight = StackPanelMain.ActualHeight - 100;
+            if (check == 0)
+            {
+                screen.MinHeight = StackPanelMain.ActualHeight - 300;
+                check = 1;
+            }
+            else
+                screen.MinHeight = StackPanelMain.ActualHeight;
+            MessageBox.Show("SwitchToReceipt - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 
@@ -257,7 +290,14 @@ namespace CoffeeShop
             var screen = new Menu.MenuList();
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
-            screen.MinHeight = StackPanelMain.ActualHeight - 100;
+            if (check == 0)
+            {
+                screen.MinHeight = StackPanelMain.ActualHeight - 300;
+                check = 1;
+            }
+            else
+                screen.MinHeight = StackPanelMain.ActualHeight;
+            MessageBox.Show("SwitchToMenu - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 
