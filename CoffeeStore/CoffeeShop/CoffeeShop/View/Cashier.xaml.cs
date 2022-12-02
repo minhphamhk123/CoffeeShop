@@ -1,4 +1,5 @@
-﻿using CoffeeShop.BUS;
+﻿using CoffeeShop.Account;
+using CoffeeShop.BUS;
 using CoffeeShop.DTO;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace CoffeeShop.View
         public class MenuBeverage
         {
             public string id { get; set; }
-            public string name{ get; set;}
+            public string name { get; set; }
             public string type { get; set; }
             public int cost { get; set; }
             public byte[] image { get; set; }
@@ -52,7 +53,7 @@ namespace CoffeeShop.View
                 cost = newCost;
                 isOutOfStock = newState;
                 image = newImage;
-            }    
+            }
         }
 
         class BillItem
@@ -82,7 +83,7 @@ namespace CoffeeShop.View
             {
                 id = newid;
                 text = newtext;
-            }    
+            }
         }
 
         List<MenuBeverage> menuItems;
@@ -114,7 +115,7 @@ namespace CoffeeShop.View
         {
             user = userID;
             tblockUsername.Text = user;
-        }    
+        }
 
         public void LoadData()
         {
@@ -161,7 +162,7 @@ namespace CoffeeShop.View
                 string id = row["BeverageTypeID"].ToString();
                 string name = row["BeverageTypeName"].ToString();
                 filterButtons.Add(new FilterButton(id, name));
-            }    
+            }
 
             ListViewMenu.ItemsSource = menuItemsDisplay;
             ListViewMenu.Items.Refresh();
@@ -172,7 +173,7 @@ namespace CoffeeShop.View
             ListFilterButton.ItemsSource = filterButtons;
             ListFilterButton.Items.Refresh();
 
-            
+
             BUS_Discount busDiscount = new BUS_Discount();
             DTO_Discount curDiscount = busDiscount.GetCurrentDiscount();
             tblockDiscount.Text = curDiscount.DiscountValue.ToString() + " %";
@@ -202,14 +203,14 @@ namespace CoffeeShop.View
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
             BUS_Employees busEmp = new BUS_Employees();
-            string typeEmp = busEmp.GetEmpTypeByID(user);
+            string typeEmp = busEmp.GetEmpTypeByID(User.ID);
             BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
             bool isHavePermission = busAccPerGr.IsHavePermission(typeEmp, "AP006");
             if (isHavePermission)
             {
                 _context.SwitchToMenu();
                 PrintScreen.Children.Clear();
-            }      
+            }
             else
                 MessageBox.Show("Bạn không có quyền sử dụng chức năng này!");
         }
@@ -236,7 +237,7 @@ namespace CoffeeShop.View
                 if (item.type == filterName)
                 {
                     menuItemsDisplay.Add(item);
-                }    
+                }
             }
             ListViewMenu.ItemsSource = menuItemsDisplay;
             ListViewMenu.Items.Refresh();
@@ -245,14 +246,14 @@ namespace CoffeeShop.View
         private void Discount_Click(object sender, RoutedEventArgs e)
         {
             BUS_Employees busEmp = new BUS_Employees();
-            string typeEmp = busEmp.GetEmpTypeByID(user);
+            string typeEmp = busEmp.GetEmpTypeByID(User.ID);
             BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
             bool isHavePermission = busAccPerGr.IsHavePermission(typeEmp, "AP007");
             if (isHavePermission)
             {
                 _context.SwitchToDiscount();
                 PrintScreen.Children.Clear();
-            }     
+            }
             else
                 MessageBox.Show("Bạn không có quyền sử dụng chức năng này!");
         }
@@ -260,14 +261,14 @@ namespace CoffeeShop.View
         private void ReceiptButton_Click(object sender, RoutedEventArgs e)
         {
             BUS_Employees busEmp = new BUS_Employees();
-            string typeEmp = busEmp.GetEmpTypeByID(user);
+            string typeEmp = busEmp.GetEmpTypeByID(User.ID);
             BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
             bool isHavePermission = busAccPerGr.IsHavePermission(typeEmp, "AP001");
             if (isHavePermission)
             {
                 _context.SwitchToReceipt();
                 PrintScreen.Children.Clear();
-            }        
+            }
             else
                 MessageBox.Show("Bạn không có quyền sử dụng chức năng này!");
         }
@@ -288,7 +289,7 @@ namespace CoffeeShop.View
             {
                 MessageBox.Show($"Hóa đơn này đã thanh toán, mã hóa đơn là {newReceiptID}!\nVui lòng chọn hóa đơn mới để tiếp tục thanh toán!");
                 return;
-            }    
+            }
 
             string id = ((Button)sender).Tag.ToString();
             string newName = "";
@@ -342,7 +343,7 @@ namespace CoffeeShop.View
             if (start == 0)
                 start = 3;
 
-            for(int i = start; i < result.Length - 1; i = i + 4)
+            for (int i = start; i < result.Length - 1; i = i + 4)
             {
                 result = result.Insert(i, ",");
             }
@@ -359,7 +360,7 @@ namespace CoffeeShop.View
             }
 
             received = Int32.Parse(tboxAmountReceived.Text);
-            if (tblockChange!=null)
+            if (tblockChange != null)
                 tblockChange.Text = MoneyToString(received - total);
         }
 
@@ -393,8 +394,8 @@ namespace CoffeeShop.View
             {
                 if (id == billItems[i].id)
                 {
-                      
-                    billItems[i].amount--; 
+
+                    billItems[i].amount--;
                     billItems[i].cost -= billItems[i].unitCost;
                     total -= billItems[i].unitCost;
                     if (billItems[i].amount == 0)
@@ -426,7 +427,7 @@ namespace CoffeeShop.View
                     tboxAmountReceived.Text = txt[1];
                 }
             }
-            
+
         }
 
         private void tboxAmountReceived_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -461,13 +462,13 @@ namespace CoffeeShop.View
             {
                 MessageBox.Show($"Hóa đơn này đã thanh toán, mã hóa đơn là {newReceiptID}!");
                 return;
-            }    
+            }
             BUS_Discount busDiscount = new BUS_Discount();
             DTO_Discount curDiscount = busDiscount.GetCurrentDiscount();
             string disID = "";
             if (curDiscount.DiscountValue != 0)
                 disID = curDiscount.DiscountID;
-            DTO_Receipt newReceipt = new DTO_Receipt("", user, disID);
+            DTO_Receipt newReceipt = new DTO_Receipt("", User.ID, disID);
 
             BUS_Receipt busReceipt = new BUS_Receipt();
             newReceiptID = busReceipt.CreateReceipt(newReceipt);
@@ -475,7 +476,7 @@ namespace CoffeeShop.View
             {
                 BUS_ReceiptDetail busReceiptDetail = new BUS_ReceiptDetail();
                 bool result = true;
-                foreach(BillItem item in billItems)
+                foreach (BillItem item in billItems)
                 {
                     DTO_ReceiptDetail newReceiptDetail = new DTO_ReceiptDetail(newReceiptID, item.id, item.amount, item.unitCost);
                     result = result & busReceiptDetail.CreateReceiptDetail(newReceiptDetail);
@@ -483,16 +484,16 @@ namespace CoffeeShop.View
                 if (result)
                 {
                     MessageBox.Show("Tạo hóa đơn thành công!");
-                }    
+                }
                 else
                 {
                     MessageBox.Show("Đã xảy ra lỗi trong quá trình tạo chi tiết hóa đơn!");
-                }    
+                }
             }
             else
             {
                 MessageBox.Show("Đã xảy ra lỗi trong quá trình tạo hóa đơn!");
-            }    
+            }
         }
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
@@ -516,7 +517,7 @@ namespace CoffeeShop.View
         }
         private void btnCashier_Click(object sender, RoutedEventArgs e)
         {
-            PrintScreen.Children.Clear();  
+            PrintScreen.Children.Clear();
         }
     }
 }
