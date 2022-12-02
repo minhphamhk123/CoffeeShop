@@ -54,13 +54,13 @@ namespace CoffeeShop.View
             dgBill.ItemsSource = details;
             dgBill.Items.Refresh();
 
-            tblockTotal.Text = MoneyToString(total);
+            tblockTotal.Text = MoneyToString(total) + " VNĐ";
 
             BUS_Discount busDis = new BUS_Discount();
             int disValue = Int32.Parse(busDis.findDiscount(receiptDetail.Rows[0]["DiscountID"].ToString()).DiscountValue.ToString());
-            tblockDisAmount.Text = disValue.ToString();
+            tblockDisAmount.Text = disValue.ToString() + " VNĐ";
 
-            tblockToTalPay.Text = MoneyToString((int)(total * (1 - disValue / 100.0)));
+            tblockToTalPay.Text = MoneyToString((int)(total * (1 - disValue / 100.0))) + " VNĐ";
         }
 
         private string MoneyToString(int amount)
