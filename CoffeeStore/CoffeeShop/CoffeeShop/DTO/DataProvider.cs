@@ -70,6 +70,36 @@ namespace CoffeeShop.DTO
             return data;
         }
 
+        public DataTable ExecuteQueryWithParam(string query, IDictionary<string, dynamic> paramList = null)
+        {
+            DataTable data = new DataTable();
+
+            using (var db = DBContext.CreateInstance())
+            {
+                var connection = db.Database.Connection;
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = query;
+
+                if (paramList != null)
+                {
+                    foreach (var param in paramList)
+                    {
+                        var commandParam = command.CreateParameter();
+                        commandParam.ParameterName = param.Key;
+                        commandParam.Value = param.Value;
+                        command.Parameters.Add(commandParam);
+                    }
+                }
+
+                var reader = command.ExecuteReader();
+                data.Load(reader);
+                connection.Close();
+            }
+
+            return data;
+        }
 
         /// <summary>
         /// Hàm trả ra số dòng thành công, vd các lệnh: Update , Insert, Delete, ...
@@ -118,6 +148,36 @@ namespace CoffeeShop.DTO
             return data;
         }
 
+
+        public int ExecuteNonQueryWithParam(string query, IDictionary<string, dynamic> paramList = null)
+        {
+            int data = 0;
+
+            using (var db = DBContext.CreateInstance())
+            {
+                var connection = db.Database.Connection;
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = query;
+
+                if (paramList != null)
+                {
+                    foreach (var param in paramList)
+                    {
+                        var commandParam = command.CreateParameter();
+                        commandParam.ParameterName = param.Key;
+                        commandParam.Value = param.Value;
+                        command.Parameters.Add(commandParam);
+                    }
+                }
+
+                data = command.ExecuteNonQuery();
+                connection.Close();
+            }
+
+            return data;
+        }
 
         /// <summary>
         /// Hàm thực hiện đếm số lượng (trả về ô đầu tiên của kết quả) , vd: SELECT Count(*) FROM ABC

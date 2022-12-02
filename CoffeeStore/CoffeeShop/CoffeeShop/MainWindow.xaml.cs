@@ -61,6 +61,9 @@ namespace CoffeeShop
             var item7 = new ItemMenu("Tài khoản", menuAccount, PackIconKind.Register);
 
             var item8 = new ItemMenu("Thiết lập quy định", "AP009", new Rule.Rule(this), PackIconKind.Cog);
+
+            var item9 = new ItemMenu("Quản lý dữ liệu", "AP010", new DataSetting.DataSetting(this), PackIconKind.Database);
+
             Menu.Children.Add(new MenuItem(item1, this));
             Menu.Children.Add(new MenuItem(item2, this));
             Menu.Children.Add(new MenuItem(item3, this));
@@ -69,6 +72,8 @@ namespace CoffeeShop
             Menu.Children.Add(new MenuItem(item6, this));
             Menu.Children.Add(new MenuItem(item7, this));
             Menu.Children.Add(new MenuItem(item8, this));
+            Menu.Children.Add(new MenuItem(item9, this));
+
             loginScreen.btnManager.Click += LoginScreen_BtnManager_Click;
             loginScreen.btnSale.Click += LoginScreen_BtnSale_Click;
 
@@ -152,6 +157,7 @@ namespace CoffeeShop
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
+                screen.Height = StackPanelMain.ActualHeight;
             }
         }
         internal void SwitchWindow(object sender)
@@ -162,6 +168,7 @@ namespace CoffeeShop
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
+                screen.Height = StackPanelMain.ActualHeight;
             }
         }
         internal void SwitchWindow(object sender, int type)
@@ -188,6 +195,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToReceipt()
@@ -196,6 +204,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void SwitchToMenu()
@@ -204,6 +213,7 @@ namespace CoffeeShop
             gridLogin.Children.Clear();
             StackPanelMain.Children.Clear();
             StackPanelMain.Children.Add(screen);
+            screen.Height = StackPanelMain.ActualHeight;
         }
 
         internal void LogOut()

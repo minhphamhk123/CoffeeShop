@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:CoffeeShop.Inventory"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             MinWidth="650" MaxHeight="600">
+             MinWidth="650" MaxHeight="600" Height="597">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -31,9 +31,7 @@
 
             <Label Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Foreground="#FFE297" FontSize="30" FontWeight="Bold">
-                Menu
-            </Label>
+                   Foreground="#FFE297" FontSize="30" FontWeight="Bold" Content="Danh sách món"/>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFE297"></Grid>
         </Grid>
 
@@ -97,19 +95,11 @@
                 </Grid.RowDefinitions>
 
                 <!--List header here-->
-                <Grid Grid.Row="0" Background="#6B6158">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Foreground="#FFE297" FontWeight="Bold" Content="Danh sách món">
-                    </Label>
-                </Grid>
                 <!--List body here-->
                 <Border Grid.Row="1" BorderBrush="#6B6158" BorderThickness="2">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>

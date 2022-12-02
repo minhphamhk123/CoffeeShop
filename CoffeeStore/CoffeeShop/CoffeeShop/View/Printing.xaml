@@ -7,15 +7,14 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
+    <Grid Background="#FF9E9E9E">
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="150"/>
-            <ColumnDefinition  Width="0.45*"/>
-            <ColumnDefinition  Width="0.5*"/>
+            <ColumnDefinition  Width="10*"/>
+            <ColumnDefinition  Width="3*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer x:Name="receiptGrid" Grid.Column="1" >
-            <local:ReceiptForm x:Name="ReceiptForm" VerticalAlignment="Top">
-            </local:ReceiptForm>
+        <ScrollViewer x:Name="receiptGrid" Grid.Column="1" Background="#FF9E9E9E" >
+            <local:ReceiptForm x:Name="ReceiptForm" Height="Auto" Width="Auto" VerticalAlignment="Top"/>
         </ScrollViewer>
         <StackPanel>
             <!--<Button Name="btnBack" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" Background="#FF7A00" Click="btnBack_Click">

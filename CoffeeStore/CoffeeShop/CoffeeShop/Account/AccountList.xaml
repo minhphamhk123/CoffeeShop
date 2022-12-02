@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:CoffeeShop.Inventory"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             MinWidth="650" MaxHeight="600">
+             MinWidth="650" MaxHeight="600" Height="600">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -31,9 +31,7 @@
 
             <Label Grid.Column="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Foreground="#FFE297" FontSize="30" FontWeight="Bold">
-                Tài khoản
-            </Label>
+                   Foreground="#FFE297" FontSize="30" FontWeight="Bold" Content="Danh sách tài khoản"/>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFE297"></Grid>
         </Grid>
 
@@ -62,25 +60,18 @@
                 </Grid.RowDefinitions>
 
                 <!--List header here-->
-                <Grid Grid.Row="0" Background="#6B6158">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Foreground="#FFE297" FontWeight="Bold" Content="Danh sách tài khoản">
-                    </Label>
-                </Grid>
                 <!--List body here-->
                 <Border Grid.Row="1" BorderBrush="#6B6158" BorderThickness="2">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="15"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="40"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="94*"></ColumnDefinition>
+                            <ColumnDefinition Width="179*"/>
                             <ColumnDefinition Width="20"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
@@ -90,7 +81,7 @@
                             SystemColors.ActiveCaptionTextBrushKey}}"
                                   VerticalScrollBarVisibility="Visible" 
                                   AutoGenerateColumns="False"
-                                  HeadersVisibility="All">
+                                  HeadersVisibility="All" Grid.ColumnSpan="2">
                             <DataGrid.CellStyle>
                                 <Style TargetType="{x:Type DataGridCell}">
                                     <Setter Property="Template">
@@ -186,7 +177,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Height="40" VerticalAlignment="Center">
                             <Button x:Name="btnPagePre" Width="40" Height="Auto" 
                                     Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
                                     VerticalAlignment="Center"

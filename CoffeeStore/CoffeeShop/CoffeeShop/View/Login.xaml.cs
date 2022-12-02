@@ -25,10 +25,8 @@ namespace CoffeeShop.View
         public Login()
         {
             InitializeComponent();
-            //txtBoxPassword.Password = "12345";
+            txtBoxPassword.Password = "123456";
 
-            txtBoxAccount.Text = "vinh2002";
-            txtBoxPassword.Password = "2002";
         }
 
         public bool CheckPassword()

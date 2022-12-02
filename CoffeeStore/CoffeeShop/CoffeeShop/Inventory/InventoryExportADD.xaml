@@ -90,10 +90,6 @@
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--List header here-->
-                <Grid Background="#6B6158">
-                    <Label Foreground="#FFE297" FontWeight="Bold" Content="Danh sách nguyên vật liệu, thiết bị xuất" Margin="15,0,0,0">
-                    </Label>
-                </Grid>
                 <!--List body here-->
                 <Border Grid.Row="1" Grid.Column="1" BorderBrush="#6B6158" BorderThickness="2">
                     <Grid>
@@ -189,7 +185,7 @@
                                                              Path=Header}"/>
                                 </DataTemplate>
                             </DataGrid.RowHeaderTemplate>
-                            
+
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tên nguyên vật liệu, thiết bị" 
                                                     Binding="{Binding Path='name'}" IsReadOnly="True"></DataGridTextColumn>
@@ -229,14 +225,14 @@
                                         Path=(Validation.Errors)[0].ErrorContent}">
                                         <Ellipse StrokeThickness="0" Fill="Red" 
                                          Width="{TemplateBinding FontSize}" 
-                                        Height="{TemplateBinding FontSize}" />        
+                                        Height="{TemplateBinding FontSize}" />
                                         <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
                                                    FontWeight="Bold" Foreground="White" 
                                                    HorizontalAlignment="Center" />
                                     </Grid>
                                 </ControlTemplate>
                             </DataGrid.RowValidationErrorTemplate>
-                            
+
                         </DataGrid>
                     </Grid>
                 </Border>
@@ -261,16 +257,16 @@
                         </TextBox>
                     </StackPanel>
                     <!--Button here-->
-                    <Button Grid.Row="3" Width="100" Margin="0,0,10,0"
+                    <Button Grid.Row="3" Width="100"
                             Background="#66A3FF" FontWeight="Bold"
-                            VerticalAlignment="Top" HorizontalAlignment="Right"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
                             Name="btSave" Click="btSave_Click">
                         LƯU
                     </Button>
-                    <Button Grid.Row="3" Grid.Column="1" Width="100" Margin="10,0,0,0"
+                    <Button Grid.Row="3" Grid.Column="1" Width="100"
                             Name="btExit" Click="btExit_Click"
                             Background="#F27047" FontWeight="Bold"
-                            VerticalAlignment="Top" HorizontalAlignment="Left">
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
                         HỦY
                     </Button>
                 </Grid>

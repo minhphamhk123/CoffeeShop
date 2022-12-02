@@ -94,16 +94,12 @@
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="2*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="81*"></RowDefinition>
+                    <RowDefinition Height="53*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--List header here-->
-                <Grid Background="#6B6158">
-                    <Label Foreground="#FFE297" FontWeight="Bold" Content="Danh sách nguyên vật liệu, thiết bị xuất" Margin="15,0,0,0">
-                    </Label>
-                </Grid>
                 <!--List body here-->
-                <Border Grid.Row="1" Grid.Column="1" BorderBrush="#6B6158" BorderThickness="2">
+                <Border Grid.Row="1" BorderBrush="#6B6158" BorderThickness="2">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"></RowDefinition>
@@ -248,15 +244,15 @@
                         </TextBox>
                     </StackPanel>
                     <!--Button here-->
-                    <Button Grid.Row="3" Width="100" Margin="0,0,10,0"
+                    <Button Grid.Row="3" Width="100"
                             Background="#66A3FF" FontWeight="Bold"
-                            VerticalAlignment="Top" HorizontalAlignment="Right"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
                             Click="btSave_Click">
                         LƯU
                     </Button>
-                    <Button x:Name="btExit" Grid.Row="3" Grid.Column="1" Width="100" Margin="10,0,0,0"
+                    <Button x:Name="btExit" Grid.Row="3" Grid.Column="1" Width="100"
                             Background="#F27047" FontWeight="Bold"
-                            VerticalAlignment="Top" HorizontalAlignment="Left"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
                             Click="btnCancel_Click">
                         HỦY
                     </Button>
