@@ -29,11 +29,13 @@ namespace CoffeeShop.DAL
         public int createNewBeverage(DTO_Beverage beverage)
         {
             int rs = 0;
-            string sql = $"Insert into BeverageName values ('" + beverage.BeverageID + "','" + beverage.BeverageTypeID + "','" + beverage.BeverageName + "'," + beverage.Price + ", false, 'Cup', @image)";
+            string sql = $"Insert into BeverageName values ('" + beverage.BeverageID + "','" + beverage.BeverageTypeID + "','" + beverage.BeverageName + "'," + beverage.Price + ", 0, 'Cup', @image)";
             
             try
             {
-                DataProvider.Instance.ExecuteQuery(sql);
+                var param = new Dictionary<string, dynamic>();
+                param.Add("image", beverage.Link);
+                DataProvider.Instance.ExecuteNonQueryWithParam(sql, param);
                 rs = 1;
             }
             catch (Exception ex)
