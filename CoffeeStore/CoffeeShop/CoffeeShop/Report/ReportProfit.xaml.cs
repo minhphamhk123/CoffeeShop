@@ -73,14 +73,8 @@ namespace CoffeeShop.Report
             DataTable InvImpData = busInvImp.GetTotalAmountByYear(dpMonthYear.SelectedDate.GetValueOrDefault().Year);
             foreach (DataRow row in InvImpData.Rows)
             {
-                float _outCome = float.Parse(row["Month"].ToString()) - 1;
-                float _profit = float.Parse(row["TotalAmount"].ToString());
-
-                Outcome[(int)_outCome - 1] = (int)_profit;
-                Profit[(int)_outCome - 1] -= (int)_profit;
-
-                //Outcome[Int32.Parse(row["Month"].ToString()) - 1] = Int32.Parse(row["TotalAmount"].ToString());
-                //Profit[Int32.Parse(row["Month"].ToString()) - 1] -= Int32.Parse(row["TotalAmount"].ToString());
+                Outcome[Int32.Parse(row["Month"].ToString()) - 1] = Int32.Parse(row["TotalAmount"].ToString());
+                Profit[Int32.Parse(row["Month"].ToString()) - 1] -= Int32.Parse(row["TotalAmount"].ToString());
             }
 
             BUS_Payment busPay = new BUS_Payment();
@@ -110,17 +104,23 @@ namespace CoffeeShop.Report
                 MaxColumnWidth = 16
             });
 
-            //FormatterGeneralCharts = value => value.ToString("N");
+            FormatterGeneralCharts = value => value.ToString("N");
+
             generalChart.AxisX.Clear();
             generalChart.AxisX.Add(new Axis
             {
                 Title = "",
+                Name = "_axisX_generalChart",
                 LabelFormatter = value => "Tháng " + (value + 1).ToString(),
                 FontSize = 15,
                 Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#6B6158")
             });
             generalChart.Series = GeneralChart;
-            generalChart.Width = LabelGeneralCharts.Count * 80;
+            generalChart.Width = LabelGeneralCharts.Count * 150;
+
+            _axisY_generalChart.LabelFormatter = value => value.ToString("N");
+            _axisX_generalChart.Labels = LabelGeneralCharts;
+
             generalChartTitle.Text = $"Biểu đồ thống kê tổng quát năm {dpMonthYear.SelectedDate.GetValueOrDefault().Year}";
         }
 

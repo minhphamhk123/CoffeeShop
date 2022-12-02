@@ -146,7 +146,7 @@ namespace CoffeeShop.DAL
         {
             DataTable data = new DataTable();
             //string sql = $"select substr(ImportDate, 4, 2) as Month, sum(Amount * Price) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/%/{year}' group by Month";
-            string sql = $"SELECT SUBSTRING(ImportDate, 4, 2) AS Month, sum(cast(Amount as decimal(9,2)) * cast(Price as decimal(9,2))) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/%/{year}' group by SUBSTRING(ImportDate, 4, 2)";
+            string sql = $"SELECT SUBSTRING(ImportDate, 4, 2) AS Month, sum(cast(Amount as int) * cast(Price as int)) as TotalAmount from InventoryImport join InventoryImportDetail on InventoryImport.ImportID = InventoryImportDetail.ImportID where ImportDate like '%/%/{year}' group by SUBSTRING(ImportDate, 4, 2)";
             try
             {
                 data = DataProvider.Instance.ExecuteQuery(sql);
