@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:CoffeeShop.Inventory"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             MinWidth="650" MaxHeight="600" Height="600">
+             MinWidth="650" MaxHeight="600" d:DesignHeight="298.933" MinHeight="1196">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"></RowDefinition>
@@ -66,7 +66,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="15"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
+
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -81,7 +81,7 @@
                             SystemColors.ActiveCaptionTextBrushKey}}"
                                   VerticalScrollBarVisibility="Visible" 
                                   AutoGenerateColumns="False"
-                                  HeadersVisibility="All" Grid.ColumnSpan="2">
+                                  HeadersVisibility="All" Grid.ColumnSpan="2" Margin="0,0,0,44">
                             <DataGrid.CellStyle>
                                 <Style TargetType="{x:Type DataGridCell}">
                                     <Setter Property="Template">
@@ -177,7 +177,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Height="40" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,0,4" Height="40" VerticalAlignment="Bottom">
                             <Button x:Name="btnPagePre" Width="40" Height="Auto" 
                                     Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
                                     VerticalAlignment="Center"

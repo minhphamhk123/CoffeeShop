@@ -63,6 +63,12 @@ namespace CoffeeShop.View
 
             User.ID = id;
             return true;
-        }    
+        }
+
+        public string GetEmpType()
+        {
+            BUS_Employees busEmp = new BUS_Employees();
+            return busEmp.GetEmpTypeByID(User.ID);
+        }
     }
 }

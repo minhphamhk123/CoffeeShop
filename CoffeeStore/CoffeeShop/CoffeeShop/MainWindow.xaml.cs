@@ -28,6 +28,8 @@ namespace CoffeeShop
     {
         string currentEmpType;
         string currentEmpID;
+        static string oldPassword;
+        static string oldUsername;
         public MainWindow()
         {
 
@@ -74,8 +76,8 @@ namespace CoffeeShop
             Menu.Children.Add(new MenuItem(item8, this));
             Menu.Children.Add(new MenuItem(item9, this));
 
-            loginScreen.btnManager.Click += LoginScreen_BtnManager_Click;
-            loginScreen.btnSale.Click += LoginScreen_BtnSale_Click;
+            //loginScreen.btnManager.Click += LoginScreen_BtnManager_Click;
+            loginScreen.btnLogin.Click += LoginScreen_BtnLogin_Click;
 
             //var screen = new Menu.MenuList();
             //StackPanelMain.Children.Add(screen);
@@ -98,6 +100,45 @@ namespace CoffeeShop
             }
         }
 
+        private void LoginScreen_BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            bool checkResult = loginScreen.CheckPassword();
+            if (checkResult)
+            {
+                tblockUsername.Text = loginScreen.txtBoxAccount.Text;
+                BUS_Employees busEmp = new BUS_Employees();
+                currentEmpID = tblockUsername.Text;
+                currentEmpType = busEmp.GetEmpTypeByID(tblockUsername.Text);
+                oldUsername = tblockUsername.Text;
+                oldPassword = loginScreen.txtBoxPassword.Password;
+
+                MessageBox.Show(currentEmpType);
+                MessageBox.Show(oldUsername);
+                MessageBox.Show(oldPassword);
+                if (currentEmpType == "AP001")
+                {
+
+                    BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
+                    bool isHavePermission = busAccPerGr.IsHavePermission(currentEmpType, "AP001");
+                    if (isHavePermission)
+                    {
+                        var screen = new Cashier(this, currentEmpID);
+                        StackPanelMain.Children.Add(screen);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bạn không có quyền truy cập chức năng này");
+                    }
+                }
+                else
+                {
+                    ((ItemMenu)((MenuItem)Menu.Children[0]).DataContext)._Cashier.SetCurrrentUser(currentEmpID);
+                    gridLogin.Children.Clear();
+                    StackPanelMain.Children.Clear();
+                    StackPanelMain.Children.Add(banner);
+                }    
+            }
+            }
         private void LoginScreen_BtnSale_Click(object sender, RoutedEventArgs e)
         {
             bool checkResult = loginScreen.CheckPassword();
@@ -130,6 +171,7 @@ namespace CoffeeShop
                 tblockUsername.Text = loginScreen.txtBoxAccount.Text;
                 BUS_Employees busEmp = new BUS_Employees();
                 currentEmpID = tblockUsername.Text;
+                
                 ((ItemMenu)((MenuItem)Menu.Children[0]).DataContext)._Cashier.SetCurrrentUser(currentEmpID);
                 currentEmpType = busEmp.GetEmpTypeByID(tblockUsername.Text);
                 gridLogin.Children.Clear();

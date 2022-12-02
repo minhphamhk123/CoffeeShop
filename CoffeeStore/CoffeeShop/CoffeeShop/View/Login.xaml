@@ -53,7 +53,7 @@
                    FontFamily="Open Sans" FontWeight="Bold" FontSize="16" Foreground="#FF4A4A4A" Padding="0">
                 Tên tài khoản
             </Label>
-            <TextBox Name="txtBoxAccount" Text="E111"
+            <TextBox Name="txtBoxAccount" Text="E008"
                      Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="5" 
                      FontFamily="Open Sans" FontSize="20" 
                      VerticalContentAlignment="Center" 
@@ -81,17 +81,11 @@
                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
                        Name="tbPassValidation" FontSize="13" Foreground="Red" Text=""/>
 
-            <Button Name="btnSale" Background="#FFFF7700"
-                    Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
+            <Button Name="btnLogin" Background="#FFFF7700"
+                    Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="3"
                     Foreground="White" FontFamily="Open Sans" FontSize="22" FontWeight="SemiBold" 
-                    Width="Auto" Height="Auto">
-                Bán hàng
-            </Button>
-            <Button Name="btnManager" Background="#FFFF7700"
-                    Grid.Row="11" Grid.Column="4" Grid.ColumnSpan="2"
-                    Foreground="White" FontFamily="Open Sans" FontSize="22" FontWeight="SemiBold" 
-                    Width="Auto" Height="Auto">
-                Quản lý
+                    Width="Auto" Height="Auto" Margin="0,1,0,0">
+                Đăng nhập
             </Button>
         </Grid>
     </Grid>
