@@ -12,7 +12,7 @@ namespace CoffeeShop.Database
 {
     internal class DBConfig
     {
-        private static string dbInstanceName = "t1";
+        private static string dbInstanceName = "test1";
         private static string dataFolderpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string GetConnectionString()
         {
@@ -75,18 +75,49 @@ namespace CoffeeShop.Database
             return true;
         }
 
-        public static void InitDB(DbContext context, bool force = false)
+        public static void Release()
+        {
+            ISqlLocalDbApi localDB = new SqlLocalDbApi();
+
+            if (localDB.IsLocalDBInstalled() && localDB.InstanceExists(dbInstanceName))
+            {
+                ISqlLocalDbInstanceInfo instance = localDB.GetInstanceInfo(dbInstanceName);
+                ISqlLocalDbInstanceManager manager = instance.Manage();
+                manager.Stop();
+            }
+        }
+
+        public static void InitDB(DbContext context)
         {
             var db = context.Database;
-            File.Delete(DBConfig.GetDbLogFilePath());
+            File.Delete(GetDbLogFilePath());
             db.Create();
             using (var transaction = db.BeginTransaction())
             {
-                foreach (var sql in File.ReadLines(DBConfig.GetInitSQLFilePath(), Encoding.UTF8))
+                foreach (var sql in File.ReadLines(GetInitSQLFilePath(), Encoding.UTF8))
                 {
                     db.ExecuteSqlCommand(sql);
                 }
-                foreach (var sql in File.ReadLines(DBConfig.GetInitBeverageFilePath(), Encoding.UTF8))
+                foreach (var sql in File.ReadLines(GetInitBeverageFilePath(), Encoding.UTF8))
+                {
+                    db.ExecuteSqlCommand(sql);
+                }
+                transaction.Commit();
+            }
+        }
+
+        public static void InitDBWithSampleData(DbContext context)
+        {
+            var db = context.Database;
+            File.Delete(GetDbLogFilePath());
+            db.Create();
+            using (var transaction = db.BeginTransaction())
+            {
+                foreach (var sql in File.ReadLines(GetInitSQLFilePath() + ".sample", Encoding.UTF8))
+                {
+                    db.ExecuteSqlCommand(sql);
+                }
+                foreach (var sql in File.ReadLines(GetInitBeverageFilePath() + ".sample", Encoding.UTF8))
                 {
                     db.ExecuteSqlCommand(sql);
                 }

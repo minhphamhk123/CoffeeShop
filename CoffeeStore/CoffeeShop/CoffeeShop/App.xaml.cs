@@ -1,11 +1,6 @@
 ﻿using CoffeeShop.Database;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Linq;
 
 namespace CoffeeShop
 {
@@ -22,10 +17,17 @@ namespace CoffeeShop
                 {
                     if (!context.Database.Exists())
                     {
-                        DBConfig.InitDB(context);
+                        DBConfig.InitDBWithSampleData(context);
                     }
                 }
             }
+
+            Exit += App_Exit;
+        }
+
+        private void App_Exit(object sender, ExitEventArgs e)
+        {
+            DBConfig.Release();
         }
     }
 }

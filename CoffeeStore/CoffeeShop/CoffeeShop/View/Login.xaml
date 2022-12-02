@@ -53,7 +53,7 @@
                    FontFamily="Open Sans" FontWeight="Bold" FontSize="16" Foreground="#FF4A4A4A" Padding="0">
                 Tên tài khoản
             </Label>
-            <TextBox Name="txtBoxAccount" Text="E001"
+            <TextBox Name="txtBoxAccount" Text="E111"
                      Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="5" 
                      FontFamily="Open Sans" FontSize="20" 
                      VerticalContentAlignment="Center" 
