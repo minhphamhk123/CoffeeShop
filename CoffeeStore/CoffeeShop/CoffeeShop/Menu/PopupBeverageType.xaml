@@ -124,13 +124,12 @@
                                                              Path=Header}"/>
                     </DataTemplate>
                 </DataGrid.RowHeaderTemplate>
-
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Loại món" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBox Name="tbType" Text="{Binding Path='BeverageTypeName', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                         VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+                                         VerticalContentAlignment="Center" HorizontalContentAlignment="Left" LostFocus="tbType_LostFocus" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -150,6 +149,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
+                
             </DataGrid>
         </Grid>
     </Grid>

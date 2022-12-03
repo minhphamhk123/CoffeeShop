@@ -118,13 +118,14 @@ namespace CoffeeShop
                 oldPassword = loginScreen.txtBoxPassword.Password;
 
                 MessageBox.Show(currentEmpType);
-                if (currentEmpType == "AP001")
+                if (currentEmpType == "ET002")
                 {
 
                     BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
                     bool isHavePermission = busAccPerGr.IsHavePermission(currentEmpType, "AP001");
                     if (isHavePermission)
                     {
+                        gridLogin.Children.Clear();
                         var screen = new Cashier(this, currentEmpID);
                         StackPanelMain.Children.Add(screen);
                     }
@@ -208,14 +209,12 @@ namespace CoffeeShop
                 }
                 else
                     screen.MinHeight = StackPanelMain.ActualHeight;
-                MessageBox.Show("SwitchScreen - 300 " + StackPanelMain.ActualHeight);
                 StackPanelMain.Children.Add(screen);
             }
         }
         internal void SwitchWindow(object sender)
         {
             var screen = ((UserControl)sender);
-
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
@@ -226,10 +225,6 @@ namespace CoffeeShop
                 }
                 else
                     screen.MinHeight = StackPanelMain.ActualHeight;
-
-                screen.MinHeight = StackPanelMain.ActualHeight;
-
-                MessageBox.Show("SwitchWindow - 300 " + StackPanelMain.ActualHeight);
                 StackPanelMain.Children.Add(screen);     
             }
         }
@@ -264,8 +259,6 @@ namespace CoffeeShop
             }
             else
                 screen.MinHeight = StackPanelMain.ActualHeight;
-
-            MessageBox.Show("SwitchToDiscount - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 
@@ -281,7 +274,6 @@ namespace CoffeeShop
             }
             else
                 screen.MinHeight = StackPanelMain.ActualHeight;
-            MessageBox.Show("SwitchToReceipt - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 
@@ -297,7 +289,6 @@ namespace CoffeeShop
             }
             else
                 screen.MinHeight = StackPanelMain.ActualHeight;
-            MessageBox.Show("SwitchToMenu - 300 " + StackPanelMain.ActualHeight);
             StackPanelMain.Children.Add(screen);
         }
 

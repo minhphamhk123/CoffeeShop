@@ -212,6 +212,7 @@ namespace CoffeeShop.Discount
             }
 
             this.findDiscount(tbDateStart.SelectedDate.Value.ToString("dd/MM/yyyy"), tbDateEnd.SelectedDate.Value.ToString("dd/MM/yyyy"));
+            //bus.findDiscount1(tbName.Text);
         }
 
 

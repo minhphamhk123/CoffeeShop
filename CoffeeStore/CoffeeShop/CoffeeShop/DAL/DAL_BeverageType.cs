@@ -39,6 +39,7 @@ namespace CoffeeShop.DAL
             try
             {
                 rs = DataProvider.Instance.ExecuteNoneQuery(sql);
+                rs = 1;
             }
             catch (Exception ex)
             {

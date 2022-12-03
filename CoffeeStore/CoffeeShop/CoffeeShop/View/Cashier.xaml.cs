@@ -361,7 +361,7 @@ namespace CoffeeShop.View
 
             received = Int32.Parse(tboxAmountReceived.Text);
             if (tblockChange != null)
-                tblockChange.Text = MoneyToString(received - total);
+                tblockChange.Text = MoneyToString(received - total - (int)(total * discount / 100.0));
         }
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
