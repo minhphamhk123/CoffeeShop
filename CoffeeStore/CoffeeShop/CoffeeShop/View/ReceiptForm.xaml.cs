@@ -58,8 +58,7 @@ namespace CoffeeShop.View
 
             BUS_Discount busDis = new BUS_Discount();
             int disValue = Int32.Parse(busDis.findDiscount(receiptDetail.Rows[0]["DiscountID"].ToString()).DiscountValue.ToString());
-            tblockDisAmount.Text = disValue.ToString() + " VNĐ";
-
+            tblockDisAmount.Text = MoneyToString((int)(total * (disValue / 100.0))) + " VNĐ"; 
             tblockToTalPay.Text = MoneyToString((int)(total * (1 - disValue / 100.0))) + " VNĐ";
         }
 

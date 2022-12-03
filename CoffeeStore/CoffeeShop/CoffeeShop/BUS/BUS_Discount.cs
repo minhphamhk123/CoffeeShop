@@ -21,6 +21,11 @@ namespace CoffeeShop.BUS
             DAL_Discount dal = new DAL_Discount();
             return dal.findDiscount(ID);
         }
+        public DataTable findDiscount1(string ID)
+        {
+            DAL_Discount dal = new DAL_Discount();
+            return dal.findDiscount1(ID);
+        }
         public DataTable findDiscount(string startdate, string enddate)
         {
             DAL_Discount dal = new DAL_Discount();

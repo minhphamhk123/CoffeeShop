@@ -52,6 +52,7 @@ namespace CoffeeShop.DAL
                 try
                 {
                     DataProvider.Instance.ExecuteQuery(sql);
+                    rs = 1;
                 }
                 catch (Exception ex)
                 {

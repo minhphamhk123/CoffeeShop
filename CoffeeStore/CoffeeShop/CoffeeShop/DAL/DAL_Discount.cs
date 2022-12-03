@@ -45,7 +45,20 @@ namespace CoffeeShop.DAL
             dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
         }
-
+        public DataTable findDiscount1(string ID)
+        {
+            string sql = $"select * from discount where discountName ='" + ID + "'";
+            DataTable dt = null; ;
+            try
+            {
+                dt = DataProvider.Instance.ExecuteQuery(sql);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return dt;
+        }
         public int createNewDiscount(DTO_Discount dTO_Discount)
         {
             int result = 0;

@@ -22,6 +22,7 @@ namespace CoffeeShop.Menu
     public partial class PopupBeverageType : UserControl
     {
         BUS_BeverageType bus;
+        static string check = "";
         public PopupBeverageType()
         {
             InitializeComponent();
@@ -90,7 +91,7 @@ namespace CoffeeShop.Menu
             loadData();
             
         }
-
+        
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa loại món này?", "Xác nhận nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
@@ -115,6 +116,11 @@ namespace CoffeeShop.Menu
                 loadData();
             else
                 dgBeverageType.ItemsSource = bus.findBeverageType(tbFind.Text);
+        }
+
+        private void tbType_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
