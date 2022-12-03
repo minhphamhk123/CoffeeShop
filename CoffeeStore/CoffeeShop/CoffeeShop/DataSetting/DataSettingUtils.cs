@@ -150,30 +150,53 @@ namespace CoffeeShop.DataSetting
         {
             if (DBConfig.EnsureSqlLocalDb(true))
             {
+                File.Copy(DBConfig.GetDBFilePath(), DBConfig.GetDBFilePath() + ".backup");
+                File.Copy(DBConfig.GetDbLogFilePath(), DBConfig.GetDbLogFilePath() + ".backup");
                 File.Delete(DBConfig.GetDBFilePath());
                 File.Delete(DBConfig.GetDbLogFilePath());
 
                 using (var db = DBContext.CreateInstance())
                 {
-                    db.Database.Create();
-                    ImportFromCSV<AccessPermission>(Path.Combine(folderPath, "AccessPermission.csv"), db.AccessPermission);
-                    ImportFromCSV<AccessPermissionGroup>(Path.Combine(folderPath, "AccessPermissionGroup.csv"), db.AccessPermissionGroup);
-                    ImportFromCSV<BeverageName>(Path.Combine(folderPath, "BeverageName.csv"), db.BeverageName);
-                    ImportFromCSV<BeverageType>(Path.Combine(folderPath, "BeverageType.csv"), db.BeverageType);
-                    ImportFromCSV<Database.Models.Discount>(Path.Combine(folderPath, "Discount.csv"), db.Discount);
-                    ImportFromCSV<Employees>(Path.Combine(folderPath, "Employees.csv"), db.Employees);
-                    ImportFromCSV<EmployeeType>(Path.Combine(folderPath, "EmployeeType.csv"), db.EmployeeType);
-                    ImportFromCSV<InventoryExport>(Path.Combine(folderPath, "InventoryExport.csv"), db.InventoryExport);
-                    ImportFromCSV<InventoryExportDetail>(Path.Combine(folderPath, "InventoryExportDetail.csv"), db.InventoryExportDetail);
-                    ImportFromCSV<InventoryImport>(Path.Combine(folderPath, "InventoryImport.csv"), db.InventoryImport);
-                    ImportFromCSV<InventoryImportDetail>(Path.Combine(folderPath, "InventoryImportDetail.csv"), db.InventoryImportDetail);
-                    ImportFromCSV<Material>(Path.Combine(folderPath, "Material.csv"), db.Material);
-                    ImportFromCSV<Parameter>(Path.Combine(folderPath, "Parameter.csv"), db.Parameter);
-                    ImportFromCSV<PaymentVoucher>(Path.Combine(folderPath, "PaymentVoucher.csv"), db.PaymentVoucher);
-                    ImportFromCSV<Receipt>(Path.Combine(folderPath, "Receipt.csv"), db.Receipt);
-                    ImportFromCSV<ReceiptDetail>(Path.Combine(folderPath, "ReceiptDetail.csv"), db.ReceiptDetail);
-                    var count = db.SaveChanges();
+                    try
+                    {
+                        db.Database.Create();
+                        ImportFromCSV<AccessPermission>(Path.Combine(folderPath, "AccessPermission.csv"), db.AccessPermission);
+                        ImportFromCSV<AccessPermissionGroup>(Path.Combine(folderPath, "AccessPermissionGroup.csv"), db.AccessPermissionGroup);
+                        ImportFromCSV<BeverageName>(Path.Combine(folderPath, "BeverageName.csv"), db.BeverageName);
+                        ImportFromCSV<BeverageType>(Path.Combine(folderPath, "BeverageType.csv"), db.BeverageType);
+                        ImportFromCSV<Database.Models.Discount>(Path.Combine(folderPath, "Discount.csv"), db.Discount);
+                        ImportFromCSV<Employees>(Path.Combine(folderPath, "Employees.csv"), db.Employees);
+                        ImportFromCSV<EmployeeType>(Path.Combine(folderPath, "EmployeeType.csv"), db.EmployeeType);
+                        ImportFromCSV<InventoryExport>(Path.Combine(folderPath, "InventoryExport.csv"), db.InventoryExport);
+                        ImportFromCSV<InventoryExportDetail>(Path.Combine(folderPath, "InventoryExportDetail.csv"), db.InventoryExportDetail);
+                        ImportFromCSV<InventoryImport>(Path.Combine(folderPath, "InventoryImport.csv"), db.InventoryImport);
+                        ImportFromCSV<InventoryImportDetail>(Path.Combine(folderPath, "InventoryImportDetail.csv"), db.InventoryImportDetail);
+                        ImportFromCSV<Material>(Path.Combine(folderPath, "Material.csv"), db.Material);
+                        ImportFromCSV<Parameter>(Path.Combine(folderPath, "Parameter.csv"), db.Parameter);
+                        ImportFromCSV<PaymentVoucher>(Path.Combine(folderPath, "PaymentVoucher.csv"), db.PaymentVoucher);
+                        ImportFromCSV<Receipt>(Path.Combine(folderPath, "Receipt.csv"), db.Receipt);
+                        ImportFromCSV<ReceiptDetail>(Path.Combine(folderPath, "ReceiptDetail.csv"), db.ReceiptDetail);
+                        var count = db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        if (DBConfig.EnsureSqlLocalDb(true))
+                        {
+                            File.Delete(DBConfig.GetDBFilePath());
+                            File.Delete(DBConfig.GetDbLogFilePath());
+                            File.Copy(DBConfig.GetDBFilePath() + ".backup", DBConfig.GetDBFilePath());
+                            File.Copy(DBConfig.GetDbLogFilePath() + ".backup", DBConfig.GetDbLogFilePath());
+                        }
+
+                        throw e;
+                    }
+                    finally
+                    {
+                        File.Delete(DBConfig.GetDBFilePath() + ".backup");
+                        File.Delete(DBConfig.GetDbLogFilePath() + ".backup");
+                    }
                 }
+
             }
         }
 

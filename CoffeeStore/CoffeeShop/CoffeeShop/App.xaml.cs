@@ -1,6 +1,7 @@
 ﻿using CoffeeShop.Database;
 using System.Windows;
 using System.Linq;
+using Dietapp;
 
 namespace CoffeeShop
 {
@@ -20,6 +21,14 @@ namespace CoffeeShop
                         DBConfig.InitDBWithSampleData(context);
                     }
                 }
+            }
+            else
+            {
+                var window = new MissingFeatureWindow();
+                window.ShowDialog();
+                MessageBox.Show("Khởi động lại ứng dụng để áp dụng thay đổi");
+                this.App_Exit(this, null);
+
             }
 
             Exit += App_Exit;
