@@ -87,6 +87,7 @@ namespace CoffeeShop.Discount
             discount.DiscountValue = float.Parse(tbPrice.Text);
             discount.StartDate = dpStartDate.SelectedDate.Value.ToString("dd/MM/yyyy");
             discount.EndDate = dpEndDate.SelectedDate.Value.ToString("dd/MM/yyyy");
+            discount.Description = tpDescription.Text;
             if (busDiscount.createNewDiscount(discount) > 0)
             {
                 MessageBox.Show($"Đã thêm ưu đãi {tbName.Text}");

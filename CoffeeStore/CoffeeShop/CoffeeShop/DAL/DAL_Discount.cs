@@ -11,7 +11,7 @@ namespace CoffeeShop.DAL
     {
         public DataTable getAllDiscount()
         {
-            string sql = $"select DiscountID , DiscountName , StartDate, EndDate, DiscountValue  from discount order by enddate DESC";
+            string sql = $"select DiscountID , DiscountName , StartDate, EndDate, DiscountValue, Description  from discount order by enddate DESC";
             DataTable dt = new DataTable();
             dt = DataProvider.Instance.ExecuteQuery(sql);
             return dt;
@@ -29,7 +29,7 @@ namespace CoffeeShop.DAL
                 dto.StartDate = (string)dt.Rows[0]["StartDate"].ToString();
                 dto.EndDate = (string)dt.Rows[0]["EndDate"].ToString();
                 dto.DiscountValue = float.Parse((string)dt.Rows[0]["DiscountValue"].ToString());
-
+                dto.Description = (string)dt.Rows[0]["Description"].ToString();
             }
             catch (Exception e)
             {
@@ -49,7 +49,7 @@ namespace CoffeeShop.DAL
         public int createNewDiscount(DTO_Discount dTO_Discount)
         {
             int result = 0;
-            string sql = $"Insert into Discount (DiscountID, DiscountName, StartDate, EndDate, DiscountValue, Description) values ('" + createID() + "','" + dTO_Discount.DiscountName + "','" + dTO_Discount.StartDate + "','" + dTO_Discount.EndDate + "'," + dTO_Discount.DiscountValue + ",'" + dTO_Discount.Description + "');";
+            string sql = $"Insert into Discount (DiscountID, DiscountName, StartDate, EndDate, DiscountValue, Description) values ('" + createID() + "',N'" + dTO_Discount.DiscountName + "','" + dTO_Discount.StartDate + "','" + dTO_Discount.EndDate + "'," + dTO_Discount.DiscountValue + ",N'" + dTO_Discount.Description + "');";
             try
             {
                 result = DataProvider.Instance.ExecuteNoneQuery(sql);
@@ -82,7 +82,7 @@ namespace CoffeeShop.DAL
         }
         public int editDiscount(DTO_Discount dTO_Discount)
         {
-            string sql = $"Update Discount set Discountname = '" + dTO_Discount.DiscountName + "', StartDate = '" + dTO_Discount.StartDate + "', EndDate = '" + dTO_Discount.EndDate + "', DiscountValue = " + dTO_Discount.DiscountValue + ", Description = '" + dTO_Discount.Description + "' Where DiscountID = '" + dTO_Discount.DiscountID + "'";
+            string sql = $"Update Discount set Discountname = N'" + dTO_Discount.DiscountName + "', StartDate = '" + dTO_Discount.StartDate + "', EndDate = '" + dTO_Discount.EndDate + "', DiscountValue = " + dTO_Discount.DiscountValue + ", Description = N'" + dTO_Discount.Description + "' Where DiscountID = '" + dTO_Discount.DiscountID + "'";
             int rs = 0;
             try
             {

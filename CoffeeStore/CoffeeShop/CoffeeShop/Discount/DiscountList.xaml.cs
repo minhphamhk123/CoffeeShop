@@ -75,6 +75,7 @@ namespace CoffeeShop.Discount
                 string startdate = row["startdate"].ToString();
                 string enddate = row["enddate"].ToString();
                 string status = "";
+                string description = row["Description"].ToString();
                 DateTime time = DateTime.ParseExact(enddate, "dd/MM/yyyy", null);
                 if (DateTime.Compare(time, DateTime.Now.Date) >= 0 && DateTime.Compare(DateTime.ParseExact(startdate, "dd/MM/yyyy", null), DateTime.Now.Date) <= 0)
                 {
@@ -90,7 +91,7 @@ namespace CoffeeShop.Discount
                 }
                 if (count >= (rowNumber - 1) * limitRow + 1 && count <= rowNumber * limitRow)
                 {
-                    list.Add(new Discount() { DiscountID = id, DiscountName = name, DiscountValue = value, StartDate = startdate, EndDate = enddate, Status = status });
+                    list.Add(new Discount() { DiscountID = id, DiscountName = name, DiscountValue = value, StartDate = startdate, EndDate = enddate, Status = status, Description = description });
                     count++;
                 }
                 else count++;
@@ -277,7 +278,7 @@ namespace CoffeeShop.Discount
                     ResizeMode = ResizeMode.NoResize,
                     WindowStyle = WindowStyle.None,
                     Title = "Sửa ưu đãi",
-                    Content = new PopupDiscountEdit(row.DiscountID, row.DiscountName, row.StartDate, row.EndDate, row.DiscountValue.ToString(), _context),
+                    Content = new PopupDiscountEdit(row.DiscountID, row.DiscountName, row.StartDate, row.EndDate, row.DiscountValue.ToString(), row.Description, _context),
                     Width = 460,
                     Height = 505,
                     Left = (Application.Current.MainWindow.Left + Application.Current.MainWindow.Width - 460) / 2,

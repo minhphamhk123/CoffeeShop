@@ -90,7 +90,7 @@ namespace CoffeeShop.DAL
                     .ToString()
                     .PadLeft(5, '0');
             //insert SQLite 
-            string sql = $"insert into Material VALUES ('{newID}','{name}','{unit}','1');";
+            string sql = $"insert into Material VALUES ('{newID}', N'{name}',N'{unit}','1');";
             try
             {
                 DataProvider.Instance.ExecuteNoneQuery(sql); return true;
@@ -116,7 +116,7 @@ namespace CoffeeShop.DAL
         }
         public bool Update (String oldName,String newName, String unit)
         {
-            string sql = $"update Material set MaterialName='{newName}', Unit = '{unit}'  where MaterialName='{oldName}'";
+            string sql = $"update Material set MaterialName='{newName}', Unit = '{unit}'  where MaterialName= N'{oldName}'";
             try
             {
                 return DataProvider.Instance.ExecuteNoneQuery(sql) > 0;

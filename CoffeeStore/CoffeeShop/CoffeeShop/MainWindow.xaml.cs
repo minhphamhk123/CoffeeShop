@@ -116,7 +116,6 @@ namespace CoffeeShop
                 oldUsername = loginScreen.txtBoxAccount.Text;
                 oldPassword = loginScreen.txtBoxPassword.Password;
 
-                MessageBox.Show(currentEmpType);
                 if (currentEmpType == "AP001")
                 {
 

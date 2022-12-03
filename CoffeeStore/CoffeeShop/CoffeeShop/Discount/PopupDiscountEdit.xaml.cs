@@ -29,7 +29,7 @@ namespace CoffeeShop.Discount
             InitializeComponent();
             busDiscount = new BUS_Discount();
         }
-        public PopupDiscountEdit(string id, string name, string startdate, string enddate, string value, MainWindow window)
+        public PopupDiscountEdit(string id, string name, string startdate, string enddate, string value, string description, MainWindow window)
         {
             InitializeComponent();
             busDiscount = new BUS_Discount();
@@ -38,7 +38,7 @@ namespace CoffeeShop.Discount
             tbStartDate.SelectedDate = DateTime.ParseExact(startdate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             tbEndDate.SelectedDate = DateTime.ParseExact(enddate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             tbPrice.Text = value;
-            tbDescription.Text = "";
+            tbDescription.Text = description;
             this.mainWindow = window;
             if (DateTime.Compare((DateTime)tbStartDate.SelectedDate, DateTime.Now.Date) <= 0)
             {
@@ -94,6 +94,7 @@ namespace CoffeeShop.Discount
             discount.DiscountValue = float.Parse(tbPrice.Text);
             discount.StartDate = tbStartDate.SelectedDate.Value.ToString("dd/MM/yyyy");
             discount.EndDate = tbEndDate.SelectedDate.Value.ToString("dd/MM/yyyy");
+            discount.Description = tbDescription.Text;
             if (busDiscount.editDiscount(discount) > 0)
             {
                 MessageBox.Show($"Đã sửa ưu đãi {tbName.Text}");
