@@ -117,8 +117,8 @@ namespace CoffeeShop
                 oldUsername = loginScreen.txtBoxAccount.Text;
                 oldPassword = loginScreen.txtBoxPassword.Password;
 
-                MessageBox.Show(currentEmpType);
                 if (currentEmpType == "ET002")
+
                 {
 
                     BUS_AccessPermissionGroup busAccPerGr = new BUS_AccessPermissionGroup();
