@@ -151,7 +151,6 @@ namespace CoffeeShop.Menu
             }
             return true;
         }
-
         public int addMenuItem(string first, string second, string third)
         {
             if (CheckFieldValidation(first, second, third) == true)

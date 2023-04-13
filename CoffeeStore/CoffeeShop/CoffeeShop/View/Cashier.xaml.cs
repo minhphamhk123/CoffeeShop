@@ -436,7 +436,7 @@ namespace CoffeeShop.View
                 e.Handled = true;
         }
 
-        private void btnCash_Click(object sender, RoutedEventArgs e)
+        public void btnCash_Click(object sender, RoutedEventArgs e)
         {
             if (billItems.Count == 0)
             {
